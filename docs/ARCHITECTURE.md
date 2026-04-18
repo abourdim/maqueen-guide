@@ -4,46 +4,47 @@ How this guide is built from Python sources into a single self-contained HTML fi
 
 ## Design goals
 
-1. **Zero runtime dependencies** — the guide must work offline, from a USB stick, with no server
-2. **Single file deliverable** — one `index.html` that a teacher can email, host on any static server, or bundle into a classroom LMS
-3. **No build toolchain** — Python stdlib only. No npm, no webpack, no transpilation
-4. **Trilingual-first** — never bolt translations on after the fact; bake them into every node from the start
-5. **Fast language switching** — no JS re-render on language change; CSS does the work
+1. **Zero runtime dependencies** — works offline, from a USB stick, with no server
+2. **Single file deliverable** — one `index.html` that teachers can email, host anywhere
+3. **No build toolchain** — Python stdlib only. No npm, no webpack
+4. **Trilingual-first** — baked into every node from the start
+5. **Fast language switching** — CSS does the work, no JS re-render
+6. **Verified API** — all MakeCode code compiles against the real `pxt-maqueen`
 
 ## Module layout
 
 ```
 src/
-├── assembler.py         # main() — orchestrates the build, writes maqueen-guide.html
-├── build.py             # 16 activities + CATS list (categories with icons/colors)
+├── assembler.py         # main() — orchestrates the build
+├── build.py             # 16 activities (Phase 1) + CATS list
 ├── phase2.py            # 29 activities (IDs 17-45)
 ├── phase3.py            # 40 activities (IDs 46-85)
-├── phase4.py            # 6 learning paths (parcours)
+├── phase4.py            # 6 learning paths
 ├── translations.py      # EN + AR translations for IDs 1-16
 ├── translations_p2.py   # EN + AR translations for IDs 17-45
 ├── translations_p3.py   # EN + AR translations for IDs 46-85
-├── i18n_module.py       # UI strings dict (FR/EN/AR) + FLAGS dict
-├── css_module.py        # CSS string — 9 themes + layout + print rules
-├── js_module.py         # JavaScript runtime (state, navigation, themes, ⌘K)
-└── help_module.py       # Pinout SVG generator + cheatsheet + FAQ (trilingual)
+├── i18n_module.py       # UI strings (FR/EN/AR) + FLAGS
+├── css_module.py        # CSS: 9 themes + layout + print
+├── js_module.py         # JavaScript runtime
+└── help_module.py       # Pinout SVG + cheatsheet + FAQ (trilingual)
 ```
 
 ## Build pipeline
 
 ```
- Python dicts ─→ assembler.py renders HTML strings ─→ single maqueen-guide.html
+Python dicts ─→ assembler.py ─→ single index.html (1.2 MB)
 ```
 
-1. **Load activities** — merge `build.py` + `phase2.py` + `phase3.py` → flat list of 85 dicts
-2. **Load translations** — merge `translations.py` + `translations_p2.py` + `translations_p3.py` → dict keyed by activity ID
-3. **Render each activity** three times (FR / EN / AR) inside a single `<section>` with `lang`-attributed children
-4. **Render panels** — sidebar, parcours, resources, help — all trilingual with `lang` attributes
-5. **Inline CSS and JS** — no external CSS or JS files
-6. **Write HTML** — one template-string write, ~1.2 MB output
+1. Load activities — merge `build.py` + `phase2.py` + `phase3.py` → 85 dicts
+2. Load translations — merge 3 translation files → dict keyed by activity ID
+3. Render each activity three times (FR/EN/AR) with `lang`-attributed children
+4. Render panels — sidebar, parcours, resources, help — all trilingual
+5. Inline CSS and JS
+6. Write HTML
 
 ## The trilingual trick
 
-Every translatable element is rendered three times, each with a `lang` attribute:
+Every translatable element is rendered three times:
 
 ```html
 <div class="goal-text" lang="fr">Objectif en français…</div>
@@ -51,7 +52,7 @@ Every translatable element is rendered three times, each with a `lang` attribute
 <div class="goal-text" lang="ar">الهدف بالعربية…</div>
 ```
 
-A single CSS rule determines which is visible:
+A single CSS rule determines visibility:
 
 ```css
 html[lang="fr"] [lang]:not([lang="fr"]) { display: none !important; }
@@ -59,7 +60,7 @@ html[lang="en"] [lang]:not([lang="en"]) { display: none !important; }
 html[lang="ar"] [lang]:not([lang="ar"]) { display: none !important; }
 ```
 
-Switching language is a single line of JavaScript:
+Switching language is one JS line:
 
 ```js
 document.documentElement.setAttribute('lang', 'ar');
@@ -67,126 +68,131 @@ document.documentElement.setAttribute('dir', 'rtl');
 ```
 
 **Why this approach?**
-- ✅ Zero JS on language switch (fast, no flicker, no re-layout storms)
-- ✅ Search engines index all three languages
-- ✅ Print-to-PDF captures the currently-visible language naturally
-- ✅ Every element carries its own language context for screen readers
+- ✅ Zero JS on switch (fast, no flicker)
+- ✅ SEO indexes all three languages
+- ✅ Print captures the visible language naturally
+- ✅ Screen readers get correct language context per element
 
-**Trade-off:** file size is ~3× vs. a single language. Acceptable for 1.2 MB — a typical image on the web is heavier.
+**Trade-off:** ~3× file size vs single language. Acceptable for 1.2 MB.
+
+## MakeCode API surface (verified)
+
+The code in every activity is written against the actual `pxt-maqueen` API from [DFRobot/pxt-maqueen](https://github.com/DFRobot/pxt-maqueen):
+
+### `maqueen` namespace (works on all Maqueen Lite hardware)
+
+```typescript
+maqueen.motorRun(Motors.M1|M2|All, Dir.CW|CCW, speed 0-255)
+maqueen.motorStop(Motors.M1|M2|All)
+maqueen.Ultrasonic() : number               // cm, no argument
+maqueen.readPatrol(Patrol.PatrolLeft|PatrolRight) : 0|1
+maqueen.writeLED(LED.LEDLeft|LEDRight, LEDswitch.turnOn|turnOff)
+maqueen.servoRun(Servos.S1|S2, angle 0-180)
+maqueen.IR_Read(IR_Pin.P16)
+maqueen.IR_ReadValue() : number             // inside IR_Callback
+```
+
+### `neopixel` (separate extension for RGB LEDs on P15)
+
+```typescript
+let strip = neopixel.create(DigitalPin.P15, 4, NeoPixelMode.RGB)
+strip.showColor(neopixel.colors(NeoPixelColors.Red))
+strip.showColor(neopixel.rgb(255, 100, 0))
+strip.setPixelColor(index, color); strip.show()
+strip.clear(); strip.show()
+```
+
+### Common errors (DO NOT USE)
+
+```typescript
+❌ maqueen.showColor(...)           // doesn't exist
+❌ maqueen.clear()                  // doesn't exist
+❌ maqueen.Ultrasonic(PingUnit.Centimeters)  // no argument
+```
+
+These were present in v1.0.0 and fixed in v1.0.1 — see [CHANGELOG](../CHANGELOG.md).
 
 ## Per-activity card structure
 
-```
+```html
 <section class="act-section" id="act-{N}">
-  <div class="act-header-bar">          ← cat color accent, number badge
-    <div class="act-title-text" lang="fr">…</div>  ← FR title
-    <div class="act-title-text" lang="en">…</div>  ← EN title
-    <div class="act-title-text" lang="ar">…</div>  ← AR title
-    <div class="act-header-tags">
-      <span class="tag-chip diff" lang="fr">★★☆ Intermédiaire</span>
-      <span class="tag-chip diff" lang="en">★★☆ Intermediate</span>
-      <span class="tag-chip diff" lang="ar">★★☆ متوسط</span>
-      …
-    </div>
+  <div class="act-header-bar">
+    <div class="act-title-text" lang="fr">…</div>
+    <div class="act-title-text" lang="en">…</div>
+    <div class="act-title-text" lang="ar">…</div>
   </div>
 
-  <div class="glass-card">              ← Objective
-    <div class="goal-text" lang="fr">…</div>
-    <div class="goal-text" lang="en">…</div>
-    <div class="goal-text" lang="ar">…</div>
-  </div>
+  <!-- Objective, Materials, Steps, Tip: 3 langs each -->
+  <div class="goal-text" lang="fr">…</div>
+  <ol class="steps-list" lang="fr">…</ol>
+  ...
 
-  <div class="needs-wrap" lang="fr">…</div>  ← Material pills per lang
-  <ol class="steps-list" lang="fr">…</ol>    ← Steps per lang
-  <div class="tip-box" lang="fr">…</div>     ← Tip per lang
-
-  <!-- Flowchart + pseudo-code: one per language -->
-  <div lang="fr">
-    <div class="flowchart">…</div>
-    <div class="pseudo-box">…</div>
-  </div>
+  <!-- Flowchart + pseudo-code: auto-generated per language -->
+  <div lang="fr"><div class="flowchart">…</div><div class="pseudo-box">…</div></div>
   <div lang="en">…</div>
   <div lang="ar">…</div>
 
-  <!-- Code is universal (JS + Python are the same in any language) -->
-  <div class="code-grid">…</div>
+  <!-- Code is universal -->
+  <div class="code-grid">
+    <div class="code-panel js-header">…</div>
+    <div class="code-panel py-header">…</div>
+  </div>
 
-  <!-- Challenges per language -->
+  <!-- Challenges: 3 langs -->
   <div class="chal-list" lang="fr">…</div>
-  <div class="chal-list" lang="en">…</div>
-  <div class="chal-list" lang="ar">…</div>
 </section>
 ```
 
 ## Auto-generated flowcharts
 
-Each activity's step list becomes a flowchart via `gen_flowchart()` in `assembler.py`. Heuristics detect node types:
-- `répéter / repeat / كرر` → **loop** node (yellow)
-- `si / if / إذا` → **decision** node (diamond, cyan)
-- `lire / afficher / read / show / اقرأ` → **I/O** node (blue)
-- Everything else → **process** node (green)
+Each activity's step list becomes a flowchart via `gen_flowchart()`. Heuristics detect node types (loop/decision/io/process) from keywords in multiple languages. Labels translate per language:
 
-Flowcharts and pseudo-codes are generated once per activity per language, with translated START/END labels:
 - FR: `DÉBUT` / `FIN`
 - EN: `START` / `END`
 - AR: `البداية` / `النهاية`
 
-Total: 85 activities × 3 languages = **255 flowcharts, 255 pseudo-code boxes**.
-
-## Themes
-
-Nine themes, each defined as a CSS variable block in `css_module.py`:
-- **Mosque, Zellige, Andalus** — Arabic/Andalusian aesthetics (Islamic geometric patterns)
-- **Space, Jungle, Robot** — vibrant tech/nature palettes
-- **Riad, Medina** — light themes (for print-friendly reading)
-- **Retro** — CRT scanlines, Konami-unlocked easter egg
-
-Each theme switches 8 core CSS variables: `--bg`, `--fg`, `--card`, `--accent`, `--accent2`, `--muted`, `--border`, `--shadow`.
+Total: **85 activities × 3 languages = 255 flowcharts + 255 pseudo-code boxes**.
 
 ## State management
-
-All runtime state is in `js_module.py`:
 
 ```js
 const STATE = {
   lang: 'fr',          // persisted in localStorage
-  theme: 'mosque',     // persisted in localStorage
-  sound: true,         // persisted in localStorage
-  progress: Set<int>,  // activity IDs marked done, persisted in localStorage
-  currentAct: null,    // scroll-spy state
+  theme: 'mosque',     // persisted
+  sound: true,         // persisted
+  progress: Set<int>,  // activity IDs marked done, persisted
 };
 ```
 
-No framework, no reactivity. State changes trigger direct DOM mutations and localStorage writes. For a doc this static, it's plenty.
+No framework, no reactivity. State changes trigger direct DOM mutations and localStorage writes.
 
 ## Print CSS
 
-Ctrl+P / Cmd+P activates the print stylesheet which:
-- Hides sidebar, topbar, all panels, all buttons
-- Forces page breaks before each activity
-- Converts flowchart colors to print-friendly shades
-- Keeps code blocks readable on paper (smaller mono font)
-- Strips the active-language filter so print captures whatever the teacher has selected
+Ctrl+P activates the print stylesheet:
+- Hides sidebar, topbar, panels, buttons
+- Page break before each activity
+- Print-friendly flowchart colors
+- Keeps only the active language
 
 ## Size budget
 
 ```
-index.html           ~1.2 MB uncompressed
-├── HTML structure   ~730 KB  (85 activities × 3 languages)
+index.html           ~1.22 MB uncompressed
+├── HTML structure   ~740 KB  (85 activities × 3 languages)
 ├── Inline CSS       ~46 KB
 ├── Inline JS        ~50 KB
-└── Everything else  ~370 KB  (pinout SVGs, cheatsheet, FAQ, parcours, resources)
+└── Everything else  ~380 KB  (pinout SVGs ×3, cheatsheet ×3, FAQ ×3, parcours, resources)
 ```
 
-With gzip (served by GitHub Pages automatically): ~230 KB over the wire.
+With gzip (GitHub Pages auto): ~230 KB over the wire.
 
 ## What's intentionally NOT in this project
 
-- ❌ No React/Vue/Svelte — vanilla JS is plenty
-- ❌ No TypeScript — Python generates correct JS by string concatenation
-- ❌ No CSS-in-JS or Tailwind — raw CSS with variables is clearer for theming
-- ❌ No bundler — inline everything, single file, ship it
-- ❌ No tests — visual inspection + HTML-balance check + JS parse-check in the build is enough for content like this
-- ❌ No analytics — respect privacy of students and teachers
+- ❌ No React/Vue/Svelte — vanilla JS suffices
+- ❌ No TypeScript source — Python generates JS by templating
+- ❌ No CSS-in-JS or Tailwind — raw CSS with variables
+- ❌ No bundler — single file, ship it
+- ❌ No analytics — respects student/teacher privacy
+- ❌ No automated tests — a regression guard in CI catches API backslides
 
 This is boring, unfashionable, and it will still work in 15 years.

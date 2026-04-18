@@ -1740,16 +1740,17 @@ maqueen.motor_stop(maqueen.Motors.ALL)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> i = <span class="hl-num">0</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> i = <span class="hl-num">0</span>
 basic.forever(<span class="hl-kw">function</span> () {
     <span class="hl-cmt">// Respiration montante</span>
     <span class="hl-kw">for</span> (i = <span class="hl-num">0</span>; i &lt;= <span class="hl-num">255</span>; i += <span class="hl-num">5</span>) {
-        maqueen.showColor(neopixel.rgb(i, <span class="hl-num">0</span>, i / <span class="hl-num">2</span>))
+        strip.showColor(neopixel.rgb(i, <span class="hl-num">0</span>, i / <span class="hl-num">2</span>))
         basic.pause(<span class="hl-num">10</span>)
     }
     <span class="hl-cmt">// Respiration descendante</span>
     <span class="hl-kw">for</span> (i = <span class="hl-num">255</span>; i &gt;= <span class="hl-num">0</span>; i -= <span class="hl-num">5</span>) {
-        maqueen.showColor(neopixel.rgb(i, <span class="hl-num">0</span>, i / <span class="hl-num">2</span>))
+        strip.showColor(neopixel.rgb(i, <span class="hl-num">0</span>, i / <span class="hl-num">2</span>))
         basic.pause(<span class="hl-num">10</span>)
     }
 })</div>
@@ -1761,14 +1762,15 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">def</span> on_forever():
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">def</span> on_forever():
     <span class="hl-cmt"># Respiration montante</span>
     <span class="hl-kw">for</span> i <span class="hl-kw">in</span> range(<span class="hl-num">0</span>, <span class="hl-num">256</span>, <span class="hl-num">5</span>):
-        maqueen.show_color(neopixel.rgb(i, <span class="hl-num">0</span>, i // <span class="hl-num">2</span>))
+        strip.show_color(neopixel.rgb(i, <span class="hl-num">0</span>, i // <span class="hl-num">2</span>))
         basic.pause(<span class="hl-num">10</span>)
     <span class="hl-cmt"># Respiration descendante</span>
     <span class="hl-kw">for</span> i <span class="hl-kw">in</span> range(<span class="hl-num">255</span>, -<span class="hl-num">1</span>, -<span class="hl-num">5</span>):
-        maqueen.show_color(neopixel.rgb(i, <span class="hl-num">0</span>, i // <span class="hl-num">2</span>))
+        strip.show_color(neopixel.rgb(i, <span class="hl-num">0</span>, i // <span class="hl-num">2</span>))
         basic.pause(<span class="hl-num">10</span>)
 
 basic.forever(on_forever)</div>
@@ -1944,7 +1946,7 @@ basic.forever(on_forever)</div>
       </div>
       <div class="code-block"><span class="hl-kw">let</span> distance = <span class="hl-num">0</span>
 basic.forever(<span class="hl-kw">function</span> () {
-    distance = maqueen.Ultrasonic(PingUnit.Centimeters)
+    distance = maqueen.Ultrasonic()
     <span class="hl-kw">if</span> (distance &gt; <span class="hl-num">5</span>) {
         basic.showNumber(distance)
     }
@@ -1959,7 +1961,7 @@ basic.forever(<span class="hl-kw">function</span> () {
         </div>
       </div>
       <div class="code-block"><span class="hl-kw">def</span> on_forever():
-    distance = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    distance = maqueen.ultrasonic()
     <span class="hl-kw">if</span> distance &gt; <span class="hl-num">5</span>:
         basic.show_number(distance)
     basic.pause(<span class="hl-num">100</span>)
@@ -2338,7 +2340,7 @@ maqueen.ir_callback(on_ir)</div>
       <div class="code-block"><span class="hl-kw">let</span> dist = <span class="hl-num">0</span>
 <span class="hl-kw">let</span> turn = <span class="hl-num">0</span>
 basic.forever(<span class="hl-kw">function</span> () {
-    dist = maqueen.Ultrasonic(PingUnit.Centimeters)
+    dist = maqueen.Ultrasonic()
     <span class="hl-kw">if</span> (dist &gt; <span class="hl-num">5</span> &amp;&amp; dist &lt; <span class="hl-num">30</span>) {
         maqueen.motorStop(maqueen.Motors.All)
         turn = Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">1</span>)
@@ -2363,7 +2365,7 @@ basic.forever(<span class="hl-kw">function</span> () {
         </div>
       </div>
       <div class="code-block"><span class="hl-kw">def</span> on_forever():
-    dist = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    dist = maqueen.ultrasonic()
     <span class="hl-kw">if</span> <span class="hl-num">5</span> &lt; dist &lt; <span class="hl-num">30</span>:
         maqueen.motor_stop(maqueen.Motors.ALL)
         turn = randint(<span class="hl-num">0</span>, <span class="hl-num">1</span>)
@@ -2801,7 +2803,8 @@ radio.on_received_string(on_received)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> speed = <span class="hl-num">150</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> speed = <span class="hl-num">150</span>
 maqueen.IR_Read(IR_Pin.P16)
 maqueen.IR_Callback(<span class="hl-kw">function</span> () {
     <span class="hl-kw">let</span> key = maqueen.IR_ReadValue()
@@ -2815,9 +2818,9 @@ maqueen.IR_Callback(<span class="hl-kw">function</span> () {
     <span class="hl-kw">else</span> <span class="hl-kw">if</span> (key == <span class="hl-num">90</span>) {               <span class="hl-cmt">// <span class="hl-num">6</span> : droite</span>
         maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, speed)
         maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, speed)
-    } <span class="hl-kw">else</span> <span class="hl-kw">if</span> (key == <span class="hl-num">66</span>) maqueen.showColor(neopixel.colors(NeoPixelColors.Red))      <span class="hl-cmt">// <span class="hl-num">7</span> : rouge</span>
+    } <span class="hl-kw">else</span> <span class="hl-kw">if</span> (key == <span class="hl-num">66</span>) strip.showColor(neopixel.colors(NeoPixelColors.Red))      <span class="hl-cmt">// <span class="hl-num">7</span> : rouge</span>
     <span class="hl-kw">else</span> <span class="hl-kw">if</span> (key == <span class="hl-num">82</span>) maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CCW, speed)  <span class="hl-cmt">// <span class="hl-num">8</span> : recul</span>
-    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (key == <span class="hl-num">74</span>) maqueen.showColor(neopixel.colors(NeoPixelColors.Blue))       <span class="hl-cmt">// <span class="hl-num">9</span> : bleu</span>
+    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (key == <span class="hl-num">74</span>) strip.showColor(neopixel.colors(NeoPixelColors.Blue))       <span class="hl-cmt">// <span class="hl-num">9</span> : bleu</span>
     <span class="hl-kw">else</span> <span class="hl-kw">if</span> (key == <span class="hl-num">22</span>) music.playTone(<span class="hl-num">523</span>, <span class="hl-num">200</span>)  <span class="hl-cmt">// <span class="hl-num">0</span> : klaxon</span>
 })</div>
     </div>
@@ -2828,7 +2831,8 @@ maqueen.IR_Callback(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">speed = <span class="hl-num">150</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+speed = <span class="hl-num">150</span>
 maqueen.ir_read(IR_Pin.P16)
 
 <span class="hl-kw">def</span> on_ir():
@@ -2844,9 +2848,9 @@ maqueen.ir_read(IR_Pin.P16)
     <span class="hl-kw">elif</span> key == <span class="hl-num">90</span>:
         maqueen.motor_run(maqueen.Motors.M1, maqueen.Dir.CW, speed)
         maqueen.motor_run(maqueen.Motors.M2, maqueen.Dir.CCW, speed)
-    <span class="hl-kw">elif</span> key == <span class="hl-num">66</span>: maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+    <span class="hl-kw">elif</span> key == <span class="hl-num">66</span>: strip.show_color(neopixel.colors(NeoPixelColors.RED))
     <span class="hl-kw">elif</span> key == <span class="hl-num">82</span>: maqueen.motor_run(maqueen.Motors.ALL, maqueen.Dir.CCW, speed)
-    <span class="hl-kw">elif</span> key == <span class="hl-num">74</span>: maqueen.show_color(neopixel.colors(NeoPixelColors.BLUE))
+    <span class="hl-kw">elif</span> key == <span class="hl-num">74</span>: strip.show_color(neopixel.colors(NeoPixelColors.BLUE))
     <span class="hl-kw">elif</span> key == <span class="hl-num">22</span>: music.play_tone(<span class="hl-num">523</span>, <span class="hl-num">200</span>)
 
 maqueen.ir_callback(on_ir)</div>
@@ -3788,10 +3792,11 @@ input.on_button_pressed(Button.B, on_button_b)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> hue = <span class="hl-num">0</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> hue = <span class="hl-num">0</span>
 basic.forever(<span class="hl-kw">function</span> () {
     hue = (hue + <span class="hl-num">2</span>) % <span class="hl-num">360</span>
-    maqueen.showColor(neopixel.hsl(hue, <span class="hl-num">99</span>, <span class="hl-num">50</span>))
+    strip.showColor(neopixel.hsl(hue, <span class="hl-num">99</span>, <span class="hl-num">50</span>))
     basic.pause(<span class="hl-num">30</span>)
 })</div>
     </div>
@@ -3802,12 +3807,13 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">hue = <span class="hl-num">0</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+hue = <span class="hl-num">0</span>
 
 <span class="hl-kw">def</span> on_forever():
     <span class="hl-kw">global</span> hue
     hue = (hue + <span class="hl-num">2</span>) % <span class="hl-num">360</span>
-    maqueen.show_color(neopixel.hsl(hue, <span class="hl-num">99</span>, <span class="hl-num">50</span>))
+    strip.show_color(neopixel.hsl(hue, <span class="hl-num">99</span>, <span class="hl-num">50</span>))
     basic.pause(<span class="hl-num">30</span>)
 
 basic.forever(on_forever)</div>
@@ -4001,19 +4007,21 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> on = <span class="hl-kw">false</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> on = <span class="hl-kw">false</span>
 basic.forever(<span class="hl-kw">function</span> () {
     <span class="hl-kw">let</span> light = input.lightLevel()
     <span class="hl-kw">if</span> (!on &amp;&amp; light &lt; <span class="hl-num">60</span>) {
         on = <span class="hl-kw">true</span>
         pins.digitalWritePin(DigitalPin.P8, <span class="hl-num">1</span>)
         pins.digitalWritePin(DigitalPin.P12, <span class="hl-num">1</span>)
-        maqueen.showColor(neopixel.colors(NeoPixelColors.White))
+        strip.showColor(neopixel.colors(NeoPixelColors.White))
     } <span class="hl-kw">else</span> <span class="hl-kw">if</span> (on &amp;&amp; light &gt; <span class="hl-num">100</span>) {
         on = <span class="hl-kw">false</span>
         pins.digitalWritePin(DigitalPin.P8, <span class="hl-num">0</span>)
         pins.digitalWritePin(DigitalPin.P12, <span class="hl-num">0</span>)
-        maqueen.clear()
+        strip.clear()
+    strip.show()
     }
     basic.pause(<span class="hl-num">200</span>)
 })</div>
@@ -4025,7 +4033,8 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">on = <span class="hl-kw">False</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+on = <span class="hl-kw">False</span>
 
 <span class="hl-kw">def</span> on_forever():
     <span class="hl-kw">global</span> on
@@ -4034,12 +4043,13 @@ basic.forever(<span class="hl-kw">function</span> () {
         on = <span class="hl-kw">True</span>
         pins.digital_write_pin(DigitalPin.P8, <span class="hl-num">1</span>)
         pins.digital_write_pin(DigitalPin.P12, <span class="hl-num">1</span>)
-        maqueen.show_color(neopixel.colors(NeoPixelColors.WHITE))
+        strip.show_color(neopixel.colors(NeoPixelColors.WHITE))
     <span class="hl-kw">elif</span> on <span class="hl-kw">and</span> light &gt; <span class="hl-num">100</span>:
         on = <span class="hl-kw">False</span>
         pins.digital_write_pin(DigitalPin.P8, <span class="hl-num">0</span>)
         pins.digital_write_pin(DigitalPin.P12, <span class="hl-num">0</span>)
-        maqueen.clear()
+        strip.clear()
+    strip.show()
     basic.pause(<span class="hl-num">200</span>)
 
 basic.forever(on_forever)</div>
@@ -4227,9 +4237,10 @@ input.on_gesture(Gesture.SHAKE, on_sh)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> notes = [<span class="hl-num">262</span>, <span class="hl-num">294</span>, <span class="hl-num">330</span>, <span class="hl-num">349</span>, <span class="hl-num">392</span>, <span class="hl-num">440</span>, <span class="hl-num">494</span>, <span class="hl-num">523</span>]
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> notes = [<span class="hl-num">262</span>, <span class="hl-num">294</span>, <span class="hl-num">330</span>, <span class="hl-num">349</span>, <span class="hl-num">392</span>, <span class="hl-num">440</span>, <span class="hl-num">494</span>, <span class="hl-num">523</span>]
 basic.forever(<span class="hl-kw">function</span> () {
-    maqueen.showColor(neopixel.rgb(Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">255</span>), Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">255</span>), Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">255</span>)))
+    strip.showColor(neopixel.rgb(Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">255</span>), Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">255</span>), Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">255</span>)))
     pins.digitalWritePin(DigitalPin.P8, Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">1</span>))
     pins.digitalWritePin(DigitalPin.P12, Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">1</span>))
     music.playTone(notes[Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">7</span>)], <span class="hl-num">150</span>)
@@ -4246,11 +4257,12 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
 notes = [<span class="hl-num">262</span>, <span class="hl-num">294</span>, <span class="hl-num">330</span>, <span class="hl-num">349</span>, <span class="hl-num">392</span>, <span class="hl-num">440</span>, <span class="hl-num">494</span>, <span class="hl-num">523</span>]
 
 <span class="hl-kw">def</span> on_forever():
-    maqueen.show_color(neopixel.rgb(randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>), randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>), randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>)))
+    strip.show_color(neopixel.rgb(randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>), randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>), randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>)))
     pins.digital_write_pin(DigitalPin.P8, randint(<span class="hl-num">0</span>,<span class="hl-num">1</span>))
     pins.digital_write_pin(DigitalPin.P12, randint(<span class="hl-num">0</span>,<span class="hl-num">1</span>))
     music.play_tone(notes[randint(<span class="hl-num">0</span>,<span class="hl-num">7</span>)], <span class="hl-num">150</span>)
@@ -4336,11 +4348,12 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">basic.forever(<span class="hl-kw">function</span> () {
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+basic.forever(<span class="hl-kw">function</span> () {
     <span class="hl-kw">let</span> level = input.soundLevel()
-    <span class="hl-kw">if</span> (level &lt; <span class="hl-num">80</span>) maqueen.showColor(neopixel.rgb(<span class="hl-num">0</span>, <span class="hl-num">0</span>, <span class="hl-num">150</span>))
-    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (level &lt; <span class="hl-num">160</span>) maqueen.showColor(neopixel.rgb(<span class="hl-num">0</span>, <span class="hl-num">200</span>, <span class="hl-num">0</span>))
-    <span class="hl-kw">else</span> maqueen.showColor(neopixel.rgb(<span class="hl-num">255</span>, <span class="hl-num">50</span>, <span class="hl-num">0</span>))
+    <span class="hl-kw">if</span> (level &lt; <span class="hl-num">80</span>) strip.showColor(neopixel.rgb(<span class="hl-num">0</span>, <span class="hl-num">0</span>, <span class="hl-num">150</span>))
+    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (level &lt; <span class="hl-num">160</span>) strip.showColor(neopixel.rgb(<span class="hl-num">0</span>, <span class="hl-num">200</span>, <span class="hl-num">0</span>))
+    <span class="hl-kw">else</span> strip.showColor(neopixel.rgb(<span class="hl-num">255</span>, <span class="hl-num">50</span>, <span class="hl-num">0</span>))
     basic.pause(<span class="hl-num">50</span>)
 })</div>
     </div>
@@ -4351,14 +4364,15 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">def</span> on_forever():
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">def</span> on_forever():
     level = input.sound_level()
     <span class="hl-kw">if</span> level &lt; <span class="hl-num">80</span>:
-        maqueen.show_color(neopixel.rgb(<span class="hl-num">0</span>, <span class="hl-num">0</span>, <span class="hl-num">150</span>))
+        strip.show_color(neopixel.rgb(<span class="hl-num">0</span>, <span class="hl-num">0</span>, <span class="hl-num">150</span>))
     <span class="hl-kw">elif</span> level &lt; <span class="hl-num">160</span>:
-        maqueen.show_color(neopixel.rgb(<span class="hl-num">0</span>, <span class="hl-num">200</span>, <span class="hl-num">0</span>))
+        strip.show_color(neopixel.rgb(<span class="hl-num">0</span>, <span class="hl-num">200</span>, <span class="hl-num">0</span>))
     <span class="hl-kw">else</span>:
-        maqueen.show_color(neopixel.rgb(<span class="hl-num">255</span>, <span class="hl-num">50</span>, <span class="hl-num">0</span>))
+        strip.show_color(neopixel.rgb(<span class="hl-num">255</span>, <span class="hl-num">50</span>, <span class="hl-num">0</span>))
     basic.pause(<span class="hl-num">50</span>)
 
 basic.forever(on_forever)</div>
@@ -4533,10 +4547,11 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">basic.forever(<span class="hl-kw">function</span> () {
-    maqueen.showColor(neopixel.colors(NeoPixelColors.Blue))
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+basic.forever(<span class="hl-kw">function</span> () {
+    strip.showColor(neopixel.colors(NeoPixelColors.Blue))
     music.playTone(<span class="hl-num">600</span>, <span class="hl-num">300</span>)
-    maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
+    strip.showColor(neopixel.colors(NeoPixelColors.Red))
     music.playTone(<span class="hl-num">900</span>, <span class="hl-num">300</span>)
 })</div>
     </div>
@@ -4547,10 +4562,11 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">def</span> on_forever():
-    maqueen.show_color(neopixel.colors(NeoPixelColors.BLUE))
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">def</span> on_forever():
+    strip.show_color(neopixel.colors(NeoPixelColors.BLUE))
     music.play_tone(<span class="hl-num">600</span>, <span class="hl-num">300</span>)
-    maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+    strip.show_color(neopixel.colors(NeoPixelColors.RED))
     music.play_tone(<span class="hl-num">900</span>, <span class="hl-num">300</span>)
 
 basic.forever(on_forever)</div>
@@ -4627,12 +4643,13 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">basic.forever(<span class="hl-kw">function</span> () {
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+basic.forever(<span class="hl-kw">function</span> () {
     <span class="hl-kw">let</span> t = input.temperature() - <span class="hl-num">3</span>
     basic.showNumber(t)
-    <span class="hl-kw">if</span> (t &lt; <span class="hl-num">18</span>) maqueen.showColor(neopixel.colors(NeoPixelColors.Blue))
-    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (t &lt; <span class="hl-num">25</span>) maqueen.showColor(neopixel.colors(NeoPixelColors.Green))
-    <span class="hl-kw">else</span> maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
+    <span class="hl-kw">if</span> (t &lt; <span class="hl-num">18</span>) strip.showColor(neopixel.colors(NeoPixelColors.Blue))
+    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (t &lt; <span class="hl-num">25</span>) strip.showColor(neopixel.colors(NeoPixelColors.Green))
+    <span class="hl-kw">else</span> strip.showColor(neopixel.colors(NeoPixelColors.Red))
     basic.pause(<span class="hl-num">2000</span>)
 })</div>
     </div>
@@ -4643,15 +4660,16 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">def</span> on_forever():
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">def</span> on_forever():
     t = input.temperature() - <span class="hl-num">3</span>
     basic.show_number(t)
     <span class="hl-kw">if</span> t &lt; <span class="hl-num">18</span>:
-        maqueen.show_color(neopixel.colors(NeoPixelColors.BLUE))
+        strip.show_color(neopixel.colors(NeoPixelColors.BLUE))
     <span class="hl-kw">elif</span> t &lt; <span class="hl-num">25</span>:
-        maqueen.show_color(neopixel.colors(NeoPixelColors.GREEN))
+        strip.show_color(neopixel.colors(NeoPixelColors.GREEN))
     <span class="hl-kw">else</span>:
-        maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+        strip.show_color(neopixel.colors(NeoPixelColors.RED))
     basic.pause(<span class="hl-num">2000</span>)
 
 basic.forever(on_forever)</div>
@@ -4833,7 +4851,7 @@ basic.forever(on_forever)</div>
         </div>
       </div>
       <div class="code-block">basic.forever(<span class="hl-kw">function</span> () {
-    <span class="hl-kw">let</span> d = maqueen.Ultrasonic(PingUnit.Centimeters)
+    <span class="hl-kw">let</span> d = maqueen.Ultrasonic()
     <span class="hl-kw">if</span> (d &gt; <span class="hl-num">3</span> &amp;&amp; d &lt; <span class="hl-num">100</span>) {
         <span class="hl-kw">let</span> freq = Math.map(d, <span class="hl-num">3</span>, <span class="hl-num">100</span>, <span class="hl-num">2000</span>, <span class="hl-num">200</span>)
         music.playTone(freq, <span class="hl-num">100</span>)
@@ -4849,7 +4867,7 @@ basic.forever(on_forever)</div>
         </div>
       </div>
       <div class="code-block"><span class="hl-kw">def</span> on_forever():
-    d = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    d = maqueen.ultrasonic()
     <span class="hl-kw">if</span> <span class="hl-num">3</span> &lt; d &lt; <span class="hl-num">100</span>:
         freq = int(<span class="hl-num">2000</span> - (d - <span class="hl-num">3</span>) * (<span class="hl-num">2000</span> - <span class="hl-num">200</span>) / (<span class="hl-num">100</span> - <span class="hl-num">3</span>))
         music.play_tone(freq, <span class="hl-num">100</span>)
@@ -5030,12 +5048,14 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">input.onGesture(Gesture.FreeFall, <span class="hl-kw">function</span> () {
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+input.onGesture(Gesture.FreeFall, <span class="hl-kw">function</span> () {
     basic.showIcon(IconNames.Skull)
     <span class="hl-kw">for</span> (<span class="hl-kw">let</span> i = <span class="hl-num">0</span>; i &lt; <span class="hl-num">5</span>; i++) {
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
+        strip.showColor(neopixel.colors(NeoPixelColors.Red))
         music.playTone(<span class="hl-num">880</span>, <span class="hl-num">100</span>)
-        maqueen.clear()
+        strip.clear()
+    strip.show()
         basic.pause(<span class="hl-num">80</span>)
     }
 })
@@ -5045,7 +5065,7 @@ input.onGesture(Gesture.Shake, <span class="hl-kw">function</span> () {
 })
 input.onButtonPressed(Button.A, <span class="hl-kw">function</span> () {
     basic.showIcon(IconNames.Happy)
-    maqueen.showColor(neopixel.colors(NeoPixelColors.Green))
+    strip.showColor(neopixel.colors(NeoPixelColors.Green))
 })</div>
     </div>
     <div class="code-panel">
@@ -5055,12 +5075,14 @@ input.onButtonPressed(Button.A, <span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">def</span> on_ff():
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">def</span> on_ff():
     basic.show_icon(IconNames.SKULL)
     <span class="hl-kw">for</span> i <span class="hl-kw">in</span> range(<span class="hl-num">5</span>):
-        maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+        strip.show_color(neopixel.colors(NeoPixelColors.RED))
         music.play_tone(<span class="hl-num">880</span>, <span class="hl-num">100</span>)
-        maqueen.clear()
+        strip.clear()
+    strip.show()
         basic.pause(<span class="hl-num">80</span>)
 input.on_gesture(Gesture.FREE_FALL, on_ff)
 
@@ -5071,7 +5093,7 @@ input.on_gesture(Gesture.SHAKE, on_shake)
 
 <span class="hl-kw">def</span> on_a():
     basic.show_icon(IconNames.HAPPY)
-    maqueen.show_color(neopixel.colors(NeoPixelColors.GREEN))
+    strip.show_color(neopixel.colors(NeoPixelColors.GREEN))
 input.on_button_pressed(Button.A, on_a)</div>
     </div>
   </div>
@@ -5263,17 +5285,19 @@ input.on_button_pressed(Button.A, on_a)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> baseline = <span class="hl-num">0</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> baseline = <span class="hl-num">0</span>
 basic.pause(<span class="hl-num">5000</span>)
-baseline = maqueen.Ultrasonic(PingUnit.Centimeters)
-input.onButtonPressed(Button.A, () =&gt; baseline = maqueen.Ultrasonic(PingUnit.Centimeters))
+baseline = maqueen.Ultrasonic()
+input.onButtonPressed(Button.A, () =&gt; baseline = maqueen.Ultrasonic())
 basic.forever(<span class="hl-kw">function</span> () {
-    <span class="hl-kw">let</span> d = maqueen.Ultrasonic(PingUnit.Centimeters)
+    <span class="hl-kw">let</span> d = maqueen.Ultrasonic()
     <span class="hl-kw">if</span> (d &gt; <span class="hl-num">3</span> &amp;&amp; Math.abs(d - baseline) &gt; <span class="hl-num">20</span>) {
         <span class="hl-kw">for</span> (<span class="hl-kw">let</span> i = <span class="hl-num">0</span>; i &lt; <span class="hl-num">10</span>; i++) {
-            maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
+            strip.showColor(neopixel.colors(NeoPixelColors.Red))
             music.playTone(<span class="hl-num">880</span>, <span class="hl-num">80</span>)
-            maqueen.clear()
+            strip.clear()
+    strip.show()
             basic.pause(<span class="hl-num">80</span>)
         }
     }
@@ -5287,22 +5311,24 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">baseline = <span class="hl-num">0</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+baseline = <span class="hl-num">0</span>
 basic.pause(<span class="hl-num">5000</span>)
-baseline = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+baseline = maqueen.ultrasonic()
 
 <span class="hl-kw">def</span> on_a():
     <span class="hl-kw">global</span> baseline
-    baseline = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    baseline = maqueen.ultrasonic()
 input.on_button_pressed(Button.A, on_a)
 
 <span class="hl-kw">def</span> on_forever():
-    d = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    d = maqueen.ultrasonic()
     <span class="hl-kw">if</span> d &gt; <span class="hl-num">3</span> <span class="hl-kw">and</span> abs(d - baseline) &gt; <span class="hl-num">20</span>:
         <span class="hl-kw">for</span> i <span class="hl-kw">in</span> range(<span class="hl-num">10</span>):
-            maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+            strip.show_color(neopixel.colors(NeoPixelColors.RED))
             music.play_tone(<span class="hl-num">880</span>, <span class="hl-num">80</span>)
-            maqueen.clear()
+            strip.clear()
+    strip.show()
             basic.pause(<span class="hl-num">80</span>)
     basic.pause(<span class="hl-num">100</span>)
 
@@ -5492,13 +5518,15 @@ input.on_gesture(Gesture.SHAKE, on_shake)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> answers = ["OUI", "NON", "PTET", "SUR", "NON!", "???", "OK", "HMM"]
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> answers = ["OUI", "NON", "PTET", "SUR", "NON!", "???", "OK", "HMM"]
 input.onGesture(Gesture.Shake, <span class="hl-kw">function</span> () {
-    maqueen.showColor(neopixel.colors(NeoPixelColors.Purple))
+    strip.showColor(neopixel.colors(NeoPixelColors.Purple))
     basic.pause(<span class="hl-num">500</span>)
     <span class="hl-kw">let</span> pick = Math.randomRange(<span class="hl-num">0</span>, <span class="hl-num">7</span>)
     basic.showString(answers[pick])
-    maqueen.clear()
+    strip.clear()
+    strip.show()
 })</div>
     </div>
     <div class="code-panel">
@@ -5508,15 +5536,17 @@ input.onGesture(Gesture.Shake, <span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
 answers = ["OUI", "NON", "PTET", "SUR", "NON!", "???", "OK", "HMM"]
 
 <span class="hl-kw">def</span> on_shake():
-    maqueen.show_color(neopixel.colors(NeoPixelColors.PURPLE))
+    strip.show_color(neopixel.colors(NeoPixelColors.PURPLE))
     basic.pause(<span class="hl-num">500</span>)
     pick = randint(<span class="hl-num">0</span>, <span class="hl-num">7</span>)
     basic.show_string(answers[pick])
-    maqueen.clear()
+    strip.clear()
+    strip.show()
 input.on_gesture(Gesture.SHAKE, on_shake)</div>
     </div>
   </div>
@@ -5961,7 +5991,8 @@ input.on_gesture(Gesture.LOGO_DOWN, <span class="hl-kw">lambda</span>: input_ste
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> claps = <span class="hl-num">0</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> claps = <span class="hl-num">0</span>
 <span class="hl-kw">let</span> lastClapTime = <span class="hl-num">0</span>
 input.onSound(DetectedSound.Loud, <span class="hl-kw">function</span> () {
     <span class="hl-kw">let</span> now = input.runningTime()
@@ -5969,10 +6000,10 @@ input.onSound(DetectedSound.Loud, <span class="hl-kw">function</span> () {
     <span class="hl-kw">else</span> claps++
     lastClapTime = now
     basic.pause(<span class="hl-num">300</span>)
-    <span class="hl-kw">if</span> (claps == <span class="hl-num">1</span>) { maqueen.showColor(neopixel.colors(NeoPixelColors.Red)) }
-    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (claps == <span class="hl-num">2</span>) { maqueen.showColor(neopixel.colors(NeoPixelColors.Green)) }
+    <span class="hl-kw">if</span> (claps == <span class="hl-num">1</span>) { strip.showColor(neopixel.colors(NeoPixelColors.Red)) }
+    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (claps == <span class="hl-num">2</span>) { strip.showColor(neopixel.colors(NeoPixelColors.Green)) }
     <span class="hl-kw">else</span> <span class="hl-kw">if</span> (claps &gt;= <span class="hl-num">3</span>) {
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Blue))
+        strip.showColor(neopixel.colors(NeoPixelColors.Blue))
         maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, <span class="hl-num">150</span>)
         maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, <span class="hl-num">150</span>)
         basic.pause(<span class="hl-num">1000</span>)
@@ -5987,7 +6018,8 @@ input.onSound(DetectedSound.Loud, <span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">claps = <span class="hl-num">0</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+claps = <span class="hl-num">0</span>
 last_clap_time = <span class="hl-num">0</span>
 
 <span class="hl-kw">def</span> on_loud():
@@ -6000,11 +6032,11 @@ last_clap_time = <span class="hl-num">0</span>
     last_clap_time = now
     basic.pause(<span class="hl-num">300</span>)
     <span class="hl-kw">if</span> claps == <span class="hl-num">1</span>:
-        maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+        strip.show_color(neopixel.colors(NeoPixelColors.RED))
     <span class="hl-kw">elif</span> claps == <span class="hl-num">2</span>:
-        maqueen.show_color(neopixel.colors(NeoPixelColors.GREEN))
+        strip.show_color(neopixel.colors(NeoPixelColors.GREEN))
     <span class="hl-kw">elif</span> claps &gt;= <span class="hl-num">3</span>:
-        maqueen.show_color(neopixel.colors(NeoPixelColors.BLUE))
+        strip.show_color(neopixel.colors(NeoPixelColors.BLUE))
         maqueen.motor_run(maqueen.Motors.M1, maqueen.Dir.CW, <span class="hl-num">150</span>)
         maqueen.motor_run(maqueen.Motors.M2, maqueen.Dir.CCW, <span class="hl-num">150</span>)
         basic.pause(<span class="hl-num">1000</span>)
@@ -6081,20 +6113,22 @@ input.on_sound(DetectedSound.LOUD, on_loud)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">input.onGesture(Gesture.Shake, <span class="hl-kw">function</span> () {
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+input.onGesture(Gesture.Shake, <span class="hl-kw">function</span> () {
     basic.showIcon(IconNames.Heart)
     basic.pause(<span class="hl-num">800</span>)
     <span class="hl-kw">let</span> roll = Math.randomRange(<span class="hl-num">1</span>, <span class="hl-num">6</span>)
     <span class="hl-kw">if</span> (roll == <span class="hl-num">1</span>) {
         <span class="hl-kw">for</span> (<span class="hl-kw">let</span> i = <span class="hl-num">0</span>; i &lt; <span class="hl-num">6</span>; i++) {
-            maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
+            strip.showColor(neopixel.colors(NeoPixelColors.Red))
             music.playTone(<span class="hl-num">880</span>, <span class="hl-num">100</span>)
-            maqueen.clear()
+            strip.clear()
+    strip.show()
             basic.pause(<span class="hl-num">80</span>)
         }
         basic.showIcon(IconNames.Skull)
     } <span class="hl-kw">else</span> {
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Green))
+        strip.showColor(neopixel.colors(NeoPixelColors.Green))
         music.playTone(<span class="hl-num">660</span>, <span class="hl-num">200</span>)
         basic.showIcon(IconNames.Yes)
     }
@@ -6107,7 +6141,8 @@ input.on_sound(DetectedSound.LOUD, on_loud)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
 
 <span class="hl-kw">def</span> on_shake():
     basic.show_icon(IconNames.HEART)
@@ -6115,13 +6150,14 @@ input.on_sound(DetectedSound.LOUD, on_loud)</div>
     roll = randint(<span class="hl-num">1</span>, <span class="hl-num">6</span>)
     <span class="hl-kw">if</span> roll == <span class="hl-num">1</span>:
         <span class="hl-kw">for</span> i <span class="hl-kw">in</span> range(<span class="hl-num">6</span>):
-            maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+            strip.show_color(neopixel.colors(NeoPixelColors.RED))
             music.play_tone(<span class="hl-num">880</span>, <span class="hl-num">100</span>)
-            maqueen.clear()
+            strip.clear()
+    strip.show()
             basic.pause(<span class="hl-num">80</span>)
         basic.show_icon(IconNames.SKULL)
     <span class="hl-kw">else</span>:
-        maqueen.show_color(neopixel.colors(NeoPixelColors.GREEN))
+        strip.show_color(neopixel.colors(NeoPixelColors.GREEN))
         music.play_tone(<span class="hl-num">660</span>, <span class="hl-num">200</span>)
         basic.show_icon(IconNames.YES)
 
@@ -6205,7 +6241,7 @@ basic.forever(<span class="hl-kw">function</span> () {
     <span class="hl-kw">if</span> (!start) <span class="hl-kw">return</span>
     <span class="hl-kw">const</span> left = pins.digitalReadPin(DigitalPin.P13)
     <span class="hl-kw">const</span> right = pins.digitalReadPin(DigitalPin.P14)
-    <span class="hl-kw">const</span> dist = maqueen.Ultrasonic(PingUnit.Centimeters)
+    <span class="hl-kw">const</span> dist = maqueen.Ultrasonic()
     <span class="hl-kw">if</span> (left == <span class="hl-num">0</span> || right == <span class="hl-num">0</span>) {
         maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CCW, <span class="hl-num">200</span>)
         basic.pause(<span class="hl-num">400</span>)
@@ -6238,7 +6274,7 @@ input.on_button_pressed(Button.A, on_button_a)
         <span class="hl-kw">return</span>
     left = pins.digital_read_pin(DigitalPin.P13)
     right = pins.digital_read_pin(DigitalPin.P14)
-    dist = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    dist = maqueen.ultrasonic()
     <span class="hl-kw">if</span> left == <span class="hl-num">0</span> <span class="hl-kw">or</span> right == <span class="hl-num">0</span>:
         maqueen.motor_run(maqueen.Motors.ALL, maqueen.Dir.CCW, <span class="hl-num">200</span>)
         basic.pause(<span class="hl-num">400</span>)
@@ -6326,7 +6362,7 @@ basic.forever(on_forever)</div>
       </div>
       <div class="code-block"><span class="hl-kw">let</span> dist = <span class="hl-num">0</span>
 basic.forever(<span class="hl-kw">function</span> () {
-    dist = maqueen.Ultrasonic(PingUnit.Centimeters)
+    dist = maqueen.Ultrasonic()
     <span class="hl-kw">if</span> (dist &gt; <span class="hl-num">0</span> &amp;&amp; dist &lt; <span class="hl-num">15</span>) {
         maqueen.motorStop(maqueen.Motors.All)
         maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, <span class="hl-num">150</span>)
@@ -6345,7 +6381,7 @@ basic.forever(<span class="hl-kw">function</span> () {
         </div>
       </div>
       <div class="code-block"><span class="hl-kw">def</span> on_forever():
-    dist = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    dist = maqueen.ultrasonic()
     <span class="hl-kw">if</span> <span class="hl-num">0</span> &lt; dist &lt; <span class="hl-num">15</span>:
         maqueen.motor_stop(maqueen.Motors.ALL)
         maqueen.motor_run(maqueen.Motors.M1, maqueen.Dir.CCW, <span class="hl-num">150</span>)
@@ -6770,7 +6806,7 @@ basic.forever(on_forever)</div>
 radio.setGroup(<span class="hl-num">42</span>)
 <span class="hl-kw">let</span> neighborClose = <span class="hl-kw">false</span>
 basic.forever(<span class="hl-kw">function</span> () {
-    <span class="hl-kw">const</span> d = maqueen.Ultrasonic(PingUnit.Centimeters)
+    <span class="hl-kw">const</span> d = maqueen.Ultrasonic()
     radio.sendValue("id" + myId, d)
     <span class="hl-kw">if</span> (d &gt; <span class="hl-num">0</span> &amp;&amp; d &lt; <span class="hl-num">15</span>) {
         maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, <span class="hl-num">100</span>)
@@ -6800,7 +6836,7 @@ radio.set_group(<span class="hl-num">42</span>)
 neighbor_close = <span class="hl-kw">False</span>
 
 <span class="hl-kw">def</span> on_forever():
-    d = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    d = maqueen.ultrasonic()
     radio.send_value("id" + str(MY_ID), d)
     <span class="hl-kw">if</span> <span class="hl-num">0</span> &lt; d &lt; <span class="hl-num">15</span>:
         maqueen.motor_run(maqueen.Motors.M1, maqueen.Dir.CCW, <span class="hl-num">100</span>)
@@ -7009,10 +7045,11 @@ input.on_button_pressed(Button.A, on_button_a)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> elapsed = <span class="hl-num">0</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> elapsed = <span class="hl-num">0</span>
 basic.forever(<span class="hl-kw">function</span> () {
-    maqueen.showColor(neopixel.colors(NeoPixelColors.Blue))
-    <span class="hl-kw">const</span> d = maqueen.Ultrasonic(PingUnit.Centimeters)
+    strip.showColor(neopixel.colors(NeoPixelColors.Blue))
+    <span class="hl-kw">const</span> d = maqueen.Ultrasonic()
     <span class="hl-kw">if</span> (d &gt; <span class="hl-num">0</span> &amp;&amp; d &lt; <span class="hl-num">12</span>) {
         maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CCW, <span class="hl-num">100</span>)
         basic.pause(<span class="hl-num">500</span>)
@@ -7042,12 +7079,13 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
 elapsed = <span class="hl-num">0</span>
 <span class="hl-kw">def</span> on_forever():
     <span class="hl-kw">global</span> elapsed
-    maqueen.show_color(neopixel.colors(NeoPixelColors.BLUE))
-    d = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    strip.show_color(neopixel.colors(NeoPixelColors.BLUE))
+    d = maqueen.ultrasonic()
     <span class="hl-kw">if</span> <span class="hl-num">0</span> &lt; d &lt; <span class="hl-num">12</span>:
         maqueen.motor_run(maqueen.Motors.ALL, maqueen.Dir.CCW, <span class="hl-num">100</span>)
         basic.pause(<span class="hl-num">500</span>)
@@ -7271,7 +7309,8 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> mood = <span class="hl-num">50</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> mood = <span class="hl-num">50</span>
 <span class="hl-kw">let</span> lightTime = <span class="hl-num">0</span>
 basic.forever(<span class="hl-kw">function</span> () {
     <span class="hl-kw">const</span> light = input.lightLevel()
@@ -7287,11 +7326,11 @@ basic.forever(<span class="hl-kw">function</span> () {
     <span class="hl-kw">if</span> (mood &gt; <span class="hl-num">70</span>) {
         basic.showIcon(IconNames.Happy)
         maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, <span class="hl-num">180</span>)
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Green))
+        strip.showColor(neopixel.colors(NeoPixelColors.Green))
     } <span class="hl-kw">else</span> <span class="hl-kw">if</span> (mood &lt; <span class="hl-num">30</span>) {
         basic.showIcon(IconNames.Sad)
         maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, <span class="hl-num">50</span>)
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Blue))
+        strip.showColor(neopixel.colors(NeoPixelColors.Blue))
     } <span class="hl-kw">else</span> {
         basic.showIcon(IconNames.Asleep)
         maqueen.motorStop(maqueen.Motors.All)
@@ -7306,7 +7345,8 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">mood = <span class="hl-num">50</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+mood = <span class="hl-num">50</span>
 light_time = <span class="hl-num">0</span>
 <span class="hl-kw">def</span> on_forever():
     <span class="hl-kw">global</span> mood, light_time
@@ -7323,11 +7363,11 @@ light_time = <span class="hl-num">0</span>
     <span class="hl-kw">if</span> mood &gt; <span class="hl-num">70</span>:
         basic.show_icon(IconNames.HAPPY)
         maqueen.motor_run(maqueen.Motors.ALL, maqueen.Dir.CW, <span class="hl-num">180</span>)
-        maqueen.show_color(neopixel.colors(NeoPixelColors.GREEN))
+        strip.show_color(neopixel.colors(NeoPixelColors.GREEN))
     <span class="hl-kw">elif</span> mood &lt; <span class="hl-num">30</span>:
         basic.show_icon(IconNames.SAD)
         maqueen.motor_run(maqueen.Motors.ALL, maqueen.Dir.CW, <span class="hl-num">50</span>)
-        maqueen.show_color(neopixel.colors(NeoPixelColors.BLUE))
+        strip.show_color(neopixel.colors(NeoPixelColors.BLUE))
     <span class="hl-kw">else</span>:
         basic.show_icon(IconNames.ASLEEP)
         maqueen.motor_stop(maqueen.Motors.ALL)
@@ -7409,17 +7449,18 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">basic.showIcon(IconNames.Skull)
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+basic.showIcon(IconNames.Skull)
 basic.pause(<span class="hl-num">5000</span>)
 basic.showIcon(IconNames.Asleep)
 basic.forever(<span class="hl-kw">function</span> () {
-    <span class="hl-kw">const</span> d = maqueen.Ultrasonic(PingUnit.Centimeters)
+    <span class="hl-kw">const</span> d = maqueen.Ultrasonic()
     <span class="hl-kw">if</span> (d &gt; <span class="hl-num">5</span> &amp;&amp; d &lt; <span class="hl-num">50</span>) {
         <span class="hl-kw">for</span> (<span class="hl-kw">let</span> i = <span class="hl-num">0</span>; i &lt; <span class="hl-num">20</span>; i++) {
-            maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
+            strip.showColor(neopixel.colors(NeoPixelColors.Red))
             music.playTone(<span class="hl-num">880</span>, <span class="hl-num">100</span>)
             basic.pause(<span class="hl-num">100</span>)
-            maqueen.showColor(neopixel.colors(NeoPixelColors.Black))
+            strip.showColor(neopixel.colors(NeoPixelColors.Black))
             music.playTone(<span class="hl-num">440</span>, <span class="hl-num">100</span>)
             basic.pause(<span class="hl-num">100</span>)
         }
@@ -7435,17 +7476,18 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">basic.show_icon(IconNames.SKULL)
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+basic.show_icon(IconNames.SKULL)
 basic.pause(<span class="hl-num">5000</span>)
 basic.show_icon(IconNames.ASLEEP)
 <span class="hl-kw">def</span> on_forever():
-    d = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    d = maqueen.ultrasonic()
     <span class="hl-kw">if</span> <span class="hl-num">5</span> &lt; d &lt; <span class="hl-num">50</span>:
         <span class="hl-kw">for</span> i <span class="hl-kw">in</span> range(<span class="hl-num">20</span>):
-            maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+            strip.show_color(neopixel.colors(NeoPixelColors.RED))
             music.play_tone(<span class="hl-num">880</span>, <span class="hl-num">100</span>)
             basic.pause(<span class="hl-num">100</span>)
-            maqueen.show_color(neopixel.colors(NeoPixelColors.BLACK))
+            strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
             music.play_tone(<span class="hl-num">440</span>, <span class="hl-num">100</span>)
             basic.pause(<span class="hl-num">100</span>)
         basic.show_string("INTRUS!")
@@ -7670,7 +7712,8 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-cmt">// ─── Robot A (émetteur) ───</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-cmt">// ─── Robot A (émetteur) ───</span>
 radio.setGroup(<span class="hl-num">7</span>)
 basic.forever(<span class="hl-kw">function</span> () {
     radio.sendString("ping")
@@ -7682,10 +7725,10 @@ basic.forever(<span class="hl-kw">function</span> () {
 radio.setGroup(<span class="hl-num">7</span>)
 radio.onReceivedString(<span class="hl-kw">function</span> (msg) {
     <span class="hl-kw">if</span> (msg == "ping") {
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Blue))
+        strip.showColor(neopixel.colors(NeoPixelColors.Blue))
         music.playTone(<span class="hl-num">523</span>, <span class="hl-num">100</span>)
         basic.pause(<span class="hl-num">200</span>)
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Black))
+        strip.showColor(neopixel.colors(NeoPixelColors.Black))
     }
 })</div>
     </div>
@@ -7696,7 +7739,8 @@ radio.onReceivedString(<span class="hl-kw">function</span> (msg) {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-cmt"># ─── Robot A (émetteur) ───</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-cmt"># ─── Robot A (émetteur) ───</span>
 radio.set_group(<span class="hl-num">7</span>)
 <span class="hl-kw">def</span> on_forever_a():
     radio.send_string("ping")
@@ -7708,10 +7752,10 @@ basic.forever(on_forever_a)
 radio.set_group(<span class="hl-num">7</span>)
 <span class="hl-kw">def</span> on_received(msg):
     <span class="hl-kw">if</span> msg == "ping":
-        maqueen.show_color(neopixel.colors(NeoPixelColors.BLUE))
+        strip.show_color(neopixel.colors(NeoPixelColors.BLUE))
         music.play_tone(<span class="hl-num">523</span>, <span class="hl-num">100</span>)
         basic.pause(<span class="hl-num">200</span>)
-        maqueen.show_color(neopixel.colors(NeoPixelColors.BLACK))
+        strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
 radio.on_received_string(on_received)</div>
     </div>
   </div>
@@ -8325,7 +8369,8 @@ radio.on_received_string(on_received)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">radio.setGroup(<span class="hl-num">88</span>)
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+radio.setGroup(<span class="hl-num">88</span>)
 <span class="hl-kw">let</span> seq: number[] = []
 <span class="hl-kw">let</span> input_arr: number[] = []
 <span class="hl-kw">function</span> play() {
@@ -8333,9 +8378,9 @@ radio.on_received_string(on_received)</div>
     input_arr = []
     <span class="hl-kw">for</span> (<span class="hl-kw">let</span> i = <span class="hl-num">0</span>; i &lt; seq.length; i++) {
         <span class="hl-kw">const</span> colors = [NeoPixelColors.Red, NeoPixelColors.Green, NeoPixelColors.Blue, NeoPixelColors.Yellow]
-        maqueen.showColor(neopixel.colors(colors[seq[i]]))
+        strip.showColor(neopixel.colors(colors[seq[i]]))
         basic.pause(<span class="hl-num">500</span>)
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Black))
+        strip.showColor(neopixel.colors(NeoPixelColors.Black))
         basic.pause(<span class="hl-num">200</span>)
     }
 }
@@ -8357,7 +8402,8 @@ input.onButtonPressed(Button.A, <span class="hl-kw">function</span> () { seq = [
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
 radio.set_group(<span class="hl-num">88</span>)
 seq = []
 input_arr = []
@@ -8368,9 +8414,9 @@ input_arr = []
     input_arr = []
     colors = [NeoPixelColors.RED, NeoPixelColors.GREEN, NeoPixelColors.BLUE, NeoPixelColors.YELLOW]
     <span class="hl-kw">for</span> s <span class="hl-kw">in</span> seq:
-        maqueen.show_color(neopixel.colors(colors[s]))
+        strip.show_color(neopixel.colors(colors[s]))
         basic.pause(<span class="hl-num">500</span>)
-        maqueen.show_color(neopixel.colors(NeoPixelColors.BLACK))
+        strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
         basic.pause(<span class="hl-num">200</span>)
 
 <span class="hl-kw">def</span> on_received(name, val):
@@ -8805,19 +8851,20 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> lastBeat = <span class="hl-num">0</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> lastBeat = <span class="hl-num">0</span>
 <span class="hl-kw">let</span> avgLevel = <span class="hl-num">100</span>
 basic.forever(<span class="hl-kw">function</span> () {
     <span class="hl-kw">const</span> lvl = input.soundLevel()
     avgLevel = avgLevel * <span class="hl-num">0.95</span> + lvl * <span class="hl-num">0.05</span>
     <span class="hl-kw">if</span> (lvl &gt; avgLevel * <span class="hl-num">1.5</span> &amp;&amp; control.millis() - lastBeat &gt; <span class="hl-num">200</span>) {
         lastBeat = control.millis()
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
+        strip.showColor(neopixel.colors(NeoPixelColors.Red))
         maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, <span class="hl-num">150</span>)
         maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, <span class="hl-num">150</span>)
         basic.pause(<span class="hl-num">100</span>)
         maqueen.motorStop(maqueen.Motors.All)
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Black))
+        strip.showColor(neopixel.colors(NeoPixelColors.Black))
     }
     basic.pause(<span class="hl-num">20</span>)
 })</div>
@@ -8829,7 +8876,8 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">last_beat = <span class="hl-num">0</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+last_beat = <span class="hl-num">0</span>
 avg_level = <span class="hl-num">100</span>
 <span class="hl-kw">def</span> on_forever():
     <span class="hl-kw">global</span> last_beat, avg_level
@@ -8837,12 +8885,12 @@ avg_level = <span class="hl-num">100</span>
     avg_level = avg_level * <span class="hl-num">0.95</span> + lvl * <span class="hl-num">0.05</span>
     <span class="hl-kw">if</span> lvl &gt; avg_level * <span class="hl-num">1.5</span> <span class="hl-kw">and</span> control.millis() - last_beat &gt; <span class="hl-num">200</span>:
         last_beat = control.millis()
-        maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+        strip.show_color(neopixel.colors(NeoPixelColors.RED))
         maqueen.motor_run(maqueen.Motors.M1, maqueen.Dir.CW, <span class="hl-num">150</span>)
         maqueen.motor_run(maqueen.Motors.M2, maqueen.Dir.CCW, <span class="hl-num">150</span>)
         basic.pause(<span class="hl-num">100</span>)
         maqueen.motor_stop(maqueen.Motors.ALL)
-        maqueen.show_color(neopixel.colors(NeoPixelColors.BLACK))
+        strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
     basic.pause(<span class="hl-num">20</span>)
 basic.forever(on_forever)</div>
     </div>
@@ -8921,7 +8969,8 @@ basic.forever(on_forever)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">const</span> SECRET = <span class="hl-num">314</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">const</span> SECRET = <span class="hl-num">314</span>
 <span class="hl-kw">let</span> code = <span class="hl-num">0</span>
 basic.forever(<span class="hl-kw">function</span> () {
     <span class="hl-kw">if</span> (code &gt;= <span class="hl-num">1000</span>) {
@@ -8932,7 +8981,7 @@ basic.forever(<span class="hl-kw">function</span> () {
     <span class="hl-kw">if</span> (code == SECRET) {
         basic.showIcon(IconNames.Yes)
         music.playTone(<span class="hl-num">523</span>, <span class="hl-num">500</span>)
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Green))
+        strip.showColor(neopixel.colors(NeoPixelColors.Green))
         <span class="hl-kw">while</span>(<span class="hl-kw">true</span>) basic.pause(<span class="hl-num">1000</span>)
     }
     code++
@@ -8946,7 +8995,8 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">SECRET = <span class="hl-num">314</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+SECRET = <span class="hl-num">314</span>
 code = <span class="hl-num">0</span>
 <span class="hl-kw">def</span> on_forever():
     <span class="hl-kw">global</span> code
@@ -8957,7 +9007,7 @@ code = <span class="hl-num">0</span>
     <span class="hl-kw">if</span> code == SECRET:
         basic.show_icon(IconNames.YES)
         music.play_tone(<span class="hl-num">523</span>, <span class="hl-num">500</span>)
-        maqueen.show_color(neopixel.colors(NeoPixelColors.GREEN))
+        strip.show_color(neopixel.colors(NeoPixelColors.GREEN))
         <span class="hl-kw">while</span> <span class="hl-kw">True</span>:
             basic.pause(<span class="hl-num">1000</span>)
     code += <span class="hl-num">1</span>
@@ -9199,7 +9249,7 @@ input.onButtonPressed(Button.A, <span class="hl-kw">function</span> () {
         basic.pause(<span class="hl-num">100</span>)
         maqueen.motorStop(maqueen.Motors.All)
         basic.pause(<span class="hl-num">100</span>)
-        scans.push(maqueen.Ultrasonic(PingUnit.Centimeters))
+        scans.push(maqueen.Ultrasonic())
     }
     <span class="hl-cmt">// Affiche schématique</span>
     basic.clearScreen()
@@ -9231,7 +9281,7 @@ input.onButtonPressed(Button.A, <span class="hl-kw">function</span> () {
         basic.pause(<span class="hl-num">100</span>)
         maqueen.motor_stop(maqueen.Motors.ALL)
         basic.pause(<span class="hl-num">100</span>)
-        scans.append(maqueen.ultrasonic(PingUnit.CENTIMETERS))
+        scans.append(maqueen.ultrasonic())
     basic.clear_screen()
     <span class="hl-kw">import</span> math
     avg = sum(scans) / len(scans)
@@ -9316,7 +9366,8 @@ input.on_button_pressed(Button.A, on_a)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> lastCheckin = control.millis()
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> lastCheckin = control.millis()
 input.onButtonPressed(Button.A, <span class="hl-kw">function</span> () {
     lastCheckin = control.millis()
     basic.showIcon(IconNames.Heart)
@@ -9331,10 +9382,10 @@ basic.forever(<span class="hl-kw">function</span> () {
         basic.pause(<span class="hl-num">500</span>)
     } <span class="hl-kw">else</span> {
         <span class="hl-kw">for</span> (<span class="hl-kw">let</span> i = <span class="hl-num">0</span>; i &lt; <span class="hl-num">10</span>; i++) {
-            maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
+            strip.showColor(neopixel.colors(NeoPixelColors.Red))
             music.playTone(<span class="hl-num">880</span>, <span class="hl-num">200</span>)
             basic.pause(<span class="hl-num">200</span>)
-            maqueen.showColor(neopixel.colors(NeoPixelColors.Black))
+            strip.showColor(neopixel.colors(NeoPixelColors.Black))
             basic.pause(<span class="hl-num">100</span>)
         }
         basic.showString("TERMINE")
@@ -9349,7 +9400,8 @@ basic.forever(<span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">last_checkin = control.millis()
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+last_checkin = control.millis()
 <span class="hl-kw">def</span> on_a():
     <span class="hl-kw">global</span> last_checkin
     last_checkin = control.millis()
@@ -9367,10 +9419,10 @@ input.on_button_pressed(Button.A, on_a)
         basic.pause(<span class="hl-num">500</span>)
     <span class="hl-kw">else</span>:
         <span class="hl-kw">for</span> i <span class="hl-kw">in</span> range(<span class="hl-num">10</span>):
-            maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+            strip.show_color(neopixel.colors(NeoPixelColors.RED))
             music.play_tone(<span class="hl-num">880</span>, <span class="hl-num">200</span>)
             basic.pause(<span class="hl-num">200</span>)
-            maqueen.show_color(neopixel.colors(NeoPixelColors.BLACK))
+            strip.show_color(neopixel.colors(NeoPixelColors.BLACK))
             basic.pause(<span class="hl-num">100</span>)
         basic.show_string("TERMINE")
         <span class="hl-kw">while</span> <span class="hl-kw">True</span>:
@@ -9904,15 +9956,16 @@ ml.on_start("Calm", on_calm)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">radio.setGroup(<span class="hl-num">99</span>)
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+radio.setGroup(<span class="hl-num">99</span>)
 ml.onStart("Fall", <span class="hl-kw">function</span> () {
-    maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
+    strip.showColor(neopixel.colors(NeoPixelColors.Red))
     music.playTone(<span class="hl-num">880</span>, <span class="hl-num">1000</span>)
     radio.sendString("SOS")
     basic.showString("SOS")
 })
 ml.onStart("Normal", <span class="hl-kw">function</span> () {
-    maqueen.showColor(neopixel.colors(NeoPixelColors.Green))
+    strip.showColor(neopixel.colors(NeoPixelColors.Green))
 })</div>
     </div>
     <div class="code-panel">
@@ -9922,16 +9975,17 @@ ml.onStart("Normal", <span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">radio.set_group(<span class="hl-num">99</span>)
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+radio.set_group(<span class="hl-num">99</span>)
 <span class="hl-kw">def</span> on_fall():
-    maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+    strip.show_color(neopixel.colors(NeoPixelColors.RED))
     music.play_tone(<span class="hl-num">880</span>, <span class="hl-num">1000</span>)
     radio.send_string("SOS")
     basic.show_string("SOS")
 ml.on_start("Fall", on_fall)
 
 <span class="hl-kw">def</span> on_normal():
-    maqueen.show_color(neopixel.colors(NeoPixelColors.GREEN))
+    strip.show_color(neopixel.colors(NeoPixelColors.GREEN))
 ml.on_start("Normal", on_normal)</div>
     </div>
   </div>
@@ -10006,14 +10060,15 @@ ml.on_start("Normal", on_normal)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> count = <span class="hl-num">0</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> count = <span class="hl-num">0</span>
 <span class="hl-kw">let</span> lastClass = ""
 ml.onStart("Jumping", <span class="hl-kw">function</span> () {
     <span class="hl-kw">if</span> (lastClass != "Jumping") { count++; lastClass = "Jumping" }
     basic.showNumber(count)
     <span class="hl-kw">if</span> (count % <span class="hl-num">10</span> == <span class="hl-num">0</span>) {
         music.playTone(<span class="hl-num">523</span>, <span class="hl-num">200</span>)
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Green))
+        strip.showColor(neopixel.colors(NeoPixelColors.Green))
     }
 })
 ml.onStart("Squat", <span class="hl-kw">function</span> () {
@@ -10032,7 +10087,8 @@ ml.onStart("Rest", <span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">count = <span class="hl-num">0</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+count = <span class="hl-num">0</span>
 last_class = ""
 <span class="hl-kw">def</span> on_jumping():
     <span class="hl-kw">global</span> count, last_class
@@ -10042,7 +10098,7 @@ last_class = ""
     basic.show_number(count)
     <span class="hl-kw">if</span> count % <span class="hl-num">10</span> == <span class="hl-num">0</span>:
         music.play_tone(<span class="hl-num">523</span>, <span class="hl-num">200</span>)
-        maqueen.show_color(neopixel.colors(NeoPixelColors.GREEN))
+        strip.show_color(neopixel.colors(NeoPixelColors.GREEN))
 ml.on_start("Jumping", on_jumping)
 
 <span class="hl-kw">def</span> on_squat():
@@ -10131,15 +10187,16 @@ ml.on_start("Rest", on_rest)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> badTime = <span class="hl-num">0</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> badTime = <span class="hl-num">0</span>
 ml.onStart("Good", <span class="hl-kw">function</span> () {
     badTime = <span class="hl-num">0</span>
-    maqueen.showColor(neopixel.colors(NeoPixelColors.Green))
+    strip.showColor(neopixel.colors(NeoPixelColors.Green))
 })
 ml.onStart("Slouch", <span class="hl-kw">function</span> () {
     badTime += <span class="hl-num">1</span>
     <span class="hl-kw">if</span> (badTime &gt; <span class="hl-num">10</span>) {
-        maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
+        strip.showColor(neopixel.colors(NeoPixelColors.Red))
         music.playTone(<span class="hl-num">440</span>, <span class="hl-num">300</span>)
     }
 })</div>
@@ -10151,18 +10208,19 @@ ml.onStart("Slouch", <span class="hl-kw">function</span> () {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">bad_time = <span class="hl-num">0</span>
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+bad_time = <span class="hl-num">0</span>
 <span class="hl-kw">def</span> on_good():
     <span class="hl-kw">global</span> bad_time
     bad_time = <span class="hl-num">0</span>
-    maqueen.show_color(neopixel.colors(NeoPixelColors.GREEN))
+    strip.show_color(neopixel.colors(NeoPixelColors.GREEN))
 ml.on_start("Good", on_good)
 
 <span class="hl-kw">def</span> on_slouch():
     <span class="hl-kw">global</span> bad_time
     bad_time += <span class="hl-num">1</span>
     <span class="hl-kw">if</span> bad_time &gt; <span class="hl-num">10</span>:
-        maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+        strip.show_color(neopixel.colors(NeoPixelColors.RED))
         music.play_tone(<span class="hl-num">440</span>, <span class="hl-num">300</span>)
 ml.on_start("Slouch", on_slouch)</div>
     </div>
@@ -10351,13 +10409,14 @@ radio.on_received_string(on_received)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">radio.setGroup(<span class="hl-num">51</span>)
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+radio.setGroup(<span class="hl-num">51</span>)
 radio.onReceivedString(<span class="hl-kw">function</span> (color) {
     basic.showString(color.substr(<span class="hl-num">0</span>, <span class="hl-num">1</span>).toUpperCase())
-    <span class="hl-kw">if</span> (color == "red") maqueen.showColor(neopixel.colors(NeoPixelColors.Red))
-    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (color == "blue") maqueen.showColor(neopixel.colors(NeoPixelColors.Blue))
-    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (color == "yellow") maqueen.showColor(neopixel.colors(NeoPixelColors.Yellow))
-    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (color == "green") maqueen.showColor(neopixel.colors(NeoPixelColors.Green))
+    <span class="hl-kw">if</span> (color == "red") strip.showColor(neopixel.colors(NeoPixelColors.Red))
+    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (color == "blue") strip.showColor(neopixel.colors(NeoPixelColors.Blue))
+    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (color == "yellow") strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
+    <span class="hl-kw">else</span> <span class="hl-kw">if</span> (color == "green") strip.showColor(neopixel.colors(NeoPixelColors.Green))
     <span class="hl-cmt">// Aller vers la zone (scripté, par exemple <span class="hl-num">90</span>° * index)</span>
 })</div>
     </div>
@@ -10368,17 +10427,18 @@ radio.onReceivedString(<span class="hl-kw">function</span> (color) {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block">radio.set_group(<span class="hl-num">51</span>)
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+radio.set_group(<span class="hl-num">51</span>)
 <span class="hl-kw">def</span> on_received(color):
     basic.show_string(color[<span class="hl-num">0</span>].upper())
     <span class="hl-kw">if</span> color == "red":
-        maqueen.show_color(neopixel.colors(NeoPixelColors.RED))
+        strip.show_color(neopixel.colors(NeoPixelColors.RED))
     <span class="hl-kw">elif</span> color == "blue":
-        maqueen.show_color(neopixel.colors(NeoPixelColors.BLUE))
+        strip.show_color(neopixel.colors(NeoPixelColors.BLUE))
     <span class="hl-kw">elif</span> color == "yellow":
-        maqueen.show_color(neopixel.colors(NeoPixelColors.YELLOW))
+        strip.show_color(neopixel.colors(NeoPixelColors.YELLOW))
     <span class="hl-kw">elif</span> color == "green":
-        maqueen.show_color(neopixel.colors(NeoPixelColors.GREEN))
+        strip.show_color(neopixel.colors(NeoPixelColors.GREEN))
 radio.on_received_string(on_received)</div>
     </div>
   </div>
@@ -10563,13 +10623,14 @@ radio.on_received_string(on_received)</div>
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">let</span> lights = <span class="hl-kw">false</span>
+      <div class="code-block"><span class="hl-kw">let</span> strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, NeoPixelMode.RGB)
+<span class="hl-kw">let</span> lights = <span class="hl-kw">false</span>
 <span class="hl-kw">let</span> motors = <span class="hl-kw">false</span>
 radio.setGroup(<span class="hl-num">53</span>)
 radio.onReceivedString(<span class="hl-kw">function</span> (pattern) {
     <span class="hl-kw">if</span> (pattern == "clap1") {
         lights = !lights
-        maqueen.showColor(neopixel.colors(lights ? NeoPixelColors.White : NeoPixelColors.Black))
+        strip.showColor(neopixel.colors(lights ? NeoPixelColors.White : NeoPixelColors.Black))
     } <span class="hl-kw">else</span> <span class="hl-kw">if</span> (pattern == "clap2") {
         motors = !motors
         <span class="hl-kw">if</span> (motors) maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, <span class="hl-num">100</span>)
@@ -10577,7 +10638,7 @@ radio.onReceivedString(<span class="hl-kw">function</span> (pattern) {
     } <span class="hl-kw">else</span> <span class="hl-kw">if</span> (pattern == "clap3") {
         <span class="hl-cmt">// Party mode 5s</span>
         <span class="hl-kw">for</span> (<span class="hl-kw">let</span> i = <span class="hl-num">0</span>; i &lt; <span class="hl-num">10</span>; i++) {
-            maqueen.showColor(neopixel.rgb(Math.randomRange(<span class="hl-num">0</span>,<span class="hl-num">255</span>), Math.randomRange(<span class="hl-num">0</span>,<span class="hl-num">255</span>), Math.randomRange(<span class="hl-num">0</span>,<span class="hl-num">255</span>)))
+            strip.showColor(neopixel.rgb(Math.randomRange(<span class="hl-num">0</span>,<span class="hl-num">255</span>), Math.randomRange(<span class="hl-num">0</span>,<span class="hl-num">255</span>), Math.randomRange(<span class="hl-num">0</span>,<span class="hl-num">255</span>)))
             basic.pause(<span class="hl-num">500</span>)
         }
     }
@@ -10590,7 +10651,8 @@ radio.onReceivedString(<span class="hl-kw">function</span> (pattern) {
           <button class="code-btn copy-btn" data-i18n="copy_btn">Copier</button>
         </div>
       </div>
-      <div class="code-block"><span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
+      <div class="code-block">strip = neopixel.create(DigitalPin.P15, <span class="hl-num">4</span>, neopixel.NeoPixelMode.RGB)
+<span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
 lights = <span class="hl-kw">False</span>
 motors = <span class="hl-kw">False</span>
 radio.set_group(<span class="hl-num">53</span>)
@@ -10599,7 +10661,7 @@ radio.set_group(<span class="hl-num">53</span>)
     <span class="hl-kw">global</span> lights, motors
     <span class="hl-kw">if</span> pattern == "clap1":
         lights = <span class="hl-kw">not</span> lights
-        maqueen.show_color(neopixel.colors(NeoPixelColors.WHITE <span class="hl-kw">if</span> lights <span class="hl-kw">else</span> NeoPixelColors.BLACK))
+        strip.show_color(neopixel.colors(NeoPixelColors.WHITE <span class="hl-kw">if</span> lights <span class="hl-kw">else</span> NeoPixelColors.BLACK))
     <span class="hl-kw">elif</span> pattern == "clap2":
         motors = <span class="hl-kw">not</span> motors
         <span class="hl-kw">if</span> motors:
@@ -10608,7 +10670,7 @@ radio.set_group(<span class="hl-num">53</span>)
             maqueen.motor_stop(maqueen.Motors.ALL)
     <span class="hl-kw">elif</span> pattern == "clap3":
         <span class="hl-kw">for</span> i <span class="hl-kw">in</span> range(<span class="hl-num">10</span>):
-            maqueen.show_color(neopixel.rgb(randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>), randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>), randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>)))
+            strip.show_color(neopixel.rgb(randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>), randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>), randint(<span class="hl-num">0</span>,<span class="hl-num">255</span>)))
             basic.pause(<span class="hl-num">500</span>)
 radio.on_received_string(on_received)</div>
     </div>
@@ -10690,7 +10752,7 @@ radio.on_received_string(on_received)</div>
       <div class="code-block"><span class="hl-cmt">// Table Q 3x3 initialisée</span>
 <span class="hl-kw">const</span> Q = [[<span class="hl-num">0</span>,<span class="hl-num">0</span>,<span class="hl-num">0</span>],[<span class="hl-num">0</span>,<span class="hl-num">0</span>,<span class="hl-num">0</span>],[<span class="hl-num">0</span>,<span class="hl-num">0</span>,<span class="hl-num">0</span>]]
 <span class="hl-kw">function</span> getState(): number {
-    <span class="hl-kw">const</span> d = maqueen.Ultrasonic(PingUnit.Centimeters)
+    <span class="hl-kw">const</span> d = maqueen.Ultrasonic()
     <span class="hl-kw">if</span> (d &lt; <span class="hl-num">15</span>) <span class="hl-kw">return</span> <span class="hl-num">0</span>  <span class="hl-cmt">// proche</span>
     <span class="hl-kw">if</span> (d &lt; <span class="hl-num">40</span>) <span class="hl-kw">return</span> <span class="hl-num">1</span>  <span class="hl-cmt">// moyen</span>
     <span class="hl-kw">return</span> <span class="hl-num">2</span>  <span class="hl-cmt">// loin</span>
@@ -10733,7 +10795,7 @@ basic.forever(<span class="hl-kw">function</span> () {
       <div class="code-block"><span class="hl-kw">from</span> random <span class="hl-kw">import</span> randint
 Q = [[<span class="hl-num">0</span>,<span class="hl-num">0</span>,<span class="hl-num">0</span>],[<span class="hl-num">0</span>,<span class="hl-num">0</span>,<span class="hl-num">0</span>],[<span class="hl-num">0</span>,<span class="hl-num">0</span>,<span class="hl-num">0</span>]]
 <span class="hl-kw">def</span> get_state():
-    d = maqueen.ultrasonic(PingUnit.CENTIMETERS)
+    d = maqueen.ultrasonic()
     <span class="hl-kw">if</span> d &lt; <span class="hl-num">15</span>: <span class="hl-kw">return</span> <span class="hl-num">0</span>
     <span class="hl-kw">if</span> d &lt; <span class="hl-num">40</span>: <span class="hl-kw">return</span> <span class="hl-num">1</span>
     <span class="hl-kw">return</span> <span class="hl-num">2</span>
@@ -11447,28 +11509,32 @@ maqueen.motor_run(maqueen.Motors.M2, maqueen.Dir.CCW, 150)</code></div></div><di
     <span class="cheat-section-icon">💡</span>
     <span>LEDs avant</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Allumer LED gauche</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>pins.digitalWritePin(DigitalPin.P8, 1)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>pins.digital_write_pin(DigitalPin.P8, 1)</code></div></div><div class="cheat-note">P8 = gauche, P12 = droite, 1 = on, 0 = off</div></div><div class="cheat-item"><div class="cheat-pattern">Allumer LED droite</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>pins.digitalWritePin(DigitalPin.P12, 1)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>pins.digital_write_pin(DigitalPin.P12, 1)</code></div></div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Allumer LED gauche</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.writeLED(maqueen.LED.LEDLeft, maqueen.LEDswitch.turnOn)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.write_led(maqueen.LED.LED_LEFT, maqueen.LEDswitch.TURN_ON)</code></div></div><div class="cheat-note">LEDLeft/LEDRight · turnOn/turnOff (ou bien pins.digitalWritePin P8/P12)</div></div><div class="cheat-item"><div class="cheat-pattern">Allumer LED droite</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.writeLED(maqueen.LED.LEDRight, maqueen.LEDswitch.turnOn)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.write_led(maqueen.LED.LED_RIGHT, maqueen.LEDswitch.TURN_ON)</code></div></div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
     <span class="cheat-section-icon">🌈</span>
     <span>LEDs RGB ambiance</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Toutes les LEDs rouges</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.showColor(neopixel.colors(NeoPixelColors.Red))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.show_color(neopixel.colors(NeoPixelColors.RED))</code></div></div><div class="cheat-note">Couleurs : Red, Green, Blue, Yellow, Purple, White, Black (off)</div></div><div class="cheat-item"><div class="cheat-pattern">Couleur RGB custom</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.showColor(neopixel.rgb(255, 100, 0))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.show_color(neopixel.rgb(255, 100, 0))</code></div></div><div class="cheat-note">rgb(rouge, vert, bleu), 0-255 par canal</div></div><div class="cheat-item"><div class="cheat-pattern">Éteindre toutes les LEDs</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.showColor(neopixel.colors(NeoPixelColors.Black))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.show_color(neopixel.colors(NeoPixelColors.BLACK))</code></div></div><div class="cheat-note">Black = éteint</div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">⚙️ Initialisation (une seule fois, en haut du code)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let strip = neopixel.create(DigitalPin.P15, 4, NeoPixelMode.RGB)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip = neopixel.create(DigitalPin.P15, 4, neopixel.NeoPixelMode.RGB)</code></div></div><div class="cheat-note">Nécessite l'extension « neopixel » · 4 LEDs sur P15</div></div><div class="cheat-item"><div class="cheat-pattern">Toutes les LEDs rouges</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.showColor(neopixel.colors(NeoPixelColors.Red))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.show_color(neopixel.colors(NeoPixelColors.RED))</code></div></div><div class="cheat-note">Couleurs : Red, Green, Blue, Yellow, Purple, White, Black (off)</div></div><div class="cheat-item"><div class="cheat-pattern">Couleur RGB custom</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.showColor(neopixel.rgb(255, 100, 0))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.show_color(neopixel.rgb(255, 100, 0))</code></div></div><div class="cheat-note">rgb(rouge, vert, bleu), 0-255 par canal</div></div><div class="cheat-item"><div class="cheat-pattern">Éteindre toutes les LEDs</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.clear()
+strip.show()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.clear()
+strip.show()</code></div></div><div class="cheat-note">`.clear()` prépare, `.show()` applique</div></div><div class="cheat-item"><div class="cheat-pattern">Une seule LED (index 0-3)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.setPixelColor(0, neopixel.rgb(255, 0, 0))
+strip.show()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.set_pixel_color(0, neopixel.rgb(255, 0, 0))
+strip.show()</code></div></div><div class="cheat-note">Index 0-3 pour les 4 LEDs · appeler `.show()` pour appliquer</div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
     <span class="cheat-section-icon">📡</span>
     <span>Capteurs</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Lire capteur de ligne gauche</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let left = pins.digitalReadPin(DigitalPin.P13)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>left = pins.digital_read_pin(DigitalPin.P13)</code></div></div><div class="cheat-note">0 = noir (ligne détectée), 1 = blanc</div></div><div class="cheat-item"><div class="cheat-pattern">Lire distance ultrasons</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let d = maqueen.Ultrasonic(PingUnit.Centimeters)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>d = maqueen.ultrasonic(PingUnit.CENTIMETERS)</code></div></div><div class="cheat-note">Portée : 3 à 400 cm · &lt; 3 = erreur</div></div><div class="cheat-item"><div class="cheat-pattern">Lire luminosité (micro:bit)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let light = input.lightLevel()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>light = input.light_level()</code></div></div><div class="cheat-note">0 (noir) à 255 (plein soleil)</div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Lire capteur de ligne gauche</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let left = maqueen.readPatrol(maqueen.Patrol.PatrolLeft)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>left = maqueen.read_patrol(maqueen.Patrol.PATROL_LEFT)</code></div></div><div class="cheat-note">0 = blanc, 1 = noir (ligne détectée) · PatrolRight pour le droit</div></div><div class="cheat-item"><div class="cheat-pattern">Lire distance ultrasons</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let d = maqueen.Ultrasonic()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>d = maqueen.ultrasonic()</code></div></div><div class="cheat-note">Portée : 3 à 400 cm · &lt; 3 = erreur</div></div><div class="cheat-item"><div class="cheat-pattern">Lire luminosité (micro:bit)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let light = input.lightLevel()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>light = input.light_level()</code></div></div><div class="cheat-note">0 (noir) à 255 (plein soleil)</div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
     <span class="cheat-section-icon">🔧</span>
     <span>Servo &amp; extensions</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Positionner servo (S1)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>pins.servoWritePin(AnalogPin.P1, 90)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>pins.servo_write_pin(AnalogPin.P1, 90)</code></div></div><div class="cheat-note">Angle 0-180° · P1 = S1, P2 = S2</div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Positionner servo (S1)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.servoRun(maqueen.Servos.S1, 90)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.servo_run(maqueen.Servos.S1, 90)</code></div></div><div class="cheat-note">Angle 0-180° · Servos.S1 / Servos.S2</div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
@@ -11520,28 +11586,32 @@ maqueen.motor_run(maqueen.Motors.M2, maqueen.Dir.CCW, 150)</code></div></div><di
     <span class="cheat-section-icon">💡</span>
     <span>Front LEDs</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Turn on left LED</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>pins.digitalWritePin(DigitalPin.P8, 1)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>pins.digital_write_pin(DigitalPin.P8, 1)</code></div></div><div class="cheat-note">P8 = left, P12 = right, 1 = on, 0 = off</div></div><div class="cheat-item"><div class="cheat-pattern">Turn on right LED</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>pins.digitalWritePin(DigitalPin.P12, 1)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>pins.digital_write_pin(DigitalPin.P12, 1)</code></div></div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Turn on left LED</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.writeLED(maqueen.LED.LEDLeft, maqueen.LEDswitch.turnOn)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.write_led(maqueen.LED.LED_LEFT, maqueen.LEDswitch.TURN_ON)</code></div></div><div class="cheat-note">LEDLeft/LEDRight · turnOn/turnOff (or pins.digitalWritePin P8/P12)</div></div><div class="cheat-item"><div class="cheat-pattern">Turn on right LED</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.writeLED(maqueen.LED.LEDRight, maqueen.LEDswitch.turnOn)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.write_led(maqueen.LED.LED_RIGHT, maqueen.LEDswitch.TURN_ON)</code></div></div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
     <span class="cheat-section-icon">🌈</span>
     <span>RGB ambient LEDs</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">All LEDs red</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.showColor(neopixel.colors(NeoPixelColors.Red))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.show_color(neopixel.colors(NeoPixelColors.RED))</code></div></div><div class="cheat-note">Colors: Red, Green, Blue, Yellow, Purple, White, Black (off)</div></div><div class="cheat-item"><div class="cheat-pattern">Custom RGB color</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.showColor(neopixel.rgb(255, 100, 0))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.show_color(neopixel.rgb(255, 100, 0))</code></div></div><div class="cheat-note">rgb(red, green, blue), 0-255 per channel</div></div><div class="cheat-item"><div class="cheat-pattern">Turn off all LEDs</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.showColor(neopixel.colors(NeoPixelColors.Black))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.show_color(neopixel.colors(NeoPixelColors.BLACK))</code></div></div><div class="cheat-note">Black = off</div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">⚙️ Setup (once, at the top of your code)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let strip = neopixel.create(DigitalPin.P15, 4, NeoPixelMode.RGB)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip = neopixel.create(DigitalPin.P15, 4, neopixel.NeoPixelMode.RGB)</code></div></div><div class="cheat-note">Requires the "neopixel" extension · 4 LEDs on P15</div></div><div class="cheat-item"><div class="cheat-pattern">All LEDs red</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.showColor(neopixel.colors(NeoPixelColors.Red))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.show_color(neopixel.colors(NeoPixelColors.RED))</code></div></div><div class="cheat-note">Colors: Red, Green, Blue, Yellow, Purple, White, Black (off)</div></div><div class="cheat-item"><div class="cheat-pattern">Custom RGB color</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.showColor(neopixel.rgb(255, 100, 0))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.show_color(neopixel.rgb(255, 100, 0))</code></div></div><div class="cheat-note">rgb(red, green, blue), 0-255 per channel</div></div><div class="cheat-item"><div class="cheat-pattern">Turn off all LEDs</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.clear()
+strip.show()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.clear()
+strip.show()</code></div></div><div class="cheat-note">`.clear()` prepares, `.show()` applies</div></div><div class="cheat-item"><div class="cheat-pattern">Single LED (index 0-3)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.setPixelColor(0, neopixel.rgb(255, 0, 0))
+strip.show()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.set_pixel_color(0, neopixel.rgb(255, 0, 0))
+strip.show()</code></div></div><div class="cheat-note">Index 0-3 for the 4 LEDs · call `.show()` to apply</div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
     <span class="cheat-section-icon">📡</span>
     <span>Sensors</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Read left line sensor</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let left = pins.digitalReadPin(DigitalPin.P13)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>left = pins.digital_read_pin(DigitalPin.P13)</code></div></div><div class="cheat-note">0 = black (line detected), 1 = white</div></div><div class="cheat-item"><div class="cheat-pattern">Read ultrasonic distance</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let d = maqueen.Ultrasonic(PingUnit.Centimeters)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>d = maqueen.ultrasonic(PingUnit.CENTIMETERS)</code></div></div><div class="cheat-note">Range: 3 to 400 cm · &lt; 3 = error</div></div><div class="cheat-item"><div class="cheat-pattern">Read brightness (micro:bit)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let light = input.lightLevel()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>light = input.light_level()</code></div></div><div class="cheat-note">0 (dark) to 255 (full sun)</div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Read left line sensor</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let left = maqueen.readPatrol(maqueen.Patrol.PatrolLeft)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>left = maqueen.read_patrol(maqueen.Patrol.PATROL_LEFT)</code></div></div><div class="cheat-note">0 = white, 1 = black (line detected) · PatrolRight for the right</div></div><div class="cheat-item"><div class="cheat-pattern">Read ultrasonic distance</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let d = maqueen.Ultrasonic()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>d = maqueen.ultrasonic()</code></div></div><div class="cheat-note">Range: 3 to 400 cm · &lt; 3 = error</div></div><div class="cheat-item"><div class="cheat-pattern">Read brightness (micro:bit)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let light = input.lightLevel()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>light = input.light_level()</code></div></div><div class="cheat-note">0 (dark) to 255 (full sun)</div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
     <span class="cheat-section-icon">🔧</span>
     <span>Servo &amp; extensions</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Position servo (S1)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>pins.servoWritePin(AnalogPin.P1, 90)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>pins.servo_write_pin(AnalogPin.P1, 90)</code></div></div><div class="cheat-note">Angle 0-180° · P1 = S1, P2 = S2</div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">Position servo (S1)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.servoRun(maqueen.Servos.S1, 90)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.servo_run(maqueen.Servos.S1, 90)</code></div></div><div class="cheat-note">Angle 0-180° · Servos.S1 / Servos.S2</div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
@@ -11593,28 +11663,32 @@ maqueen.motor_run(maqueen.Motors.M2, maqueen.Dir.CCW, 150)</code></div></div><di
     <span class="cheat-section-icon">💡</span>
     <span>المصابيح الأمامية</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">تشغيل المصباح الأيسر</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>pins.digitalWritePin(DigitalPin.P8, 1)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>pins.digital_write_pin(DigitalPin.P8, 1)</code></div></div><div class="cheat-note">P8 = يسار، P12 = يمين، 1 = تشغيل، 0 = إيقاف</div></div><div class="cheat-item"><div class="cheat-pattern">تشغيل المصباح الأيمن</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>pins.digitalWritePin(DigitalPin.P12, 1)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>pins.digital_write_pin(DigitalPin.P12, 1)</code></div></div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">تشغيل المصباح الأيسر</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.writeLED(maqueen.LED.LEDLeft, maqueen.LEDswitch.turnOn)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.write_led(maqueen.LED.LED_LEFT, maqueen.LEDswitch.TURN_ON)</code></div></div><div class="cheat-note">LEDLeft/LEDRight · turnOn/turnOff (أو pins.digitalWritePin P8/P12)</div></div><div class="cheat-item"><div class="cheat-pattern">تشغيل المصباح الأيمن</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.writeLED(maqueen.LED.LEDRight, maqueen.LEDswitch.turnOn)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.write_led(maqueen.LED.LED_RIGHT, maqueen.LEDswitch.TURN_ON)</code></div></div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
     <span class="cheat-section-icon">🌈</span>
     <span>مصابيح RGB المحيطية</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">كل المصابيح حمراء</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.showColor(neopixel.colors(NeoPixelColors.Red))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.show_color(neopixel.colors(NeoPixelColors.RED))</code></div></div><div class="cheat-note">الألوان: Red, Green, Blue, Yellow, Purple, White, Black (إيقاف)</div></div><div class="cheat-item"><div class="cheat-pattern">لون RGB مخصص</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.showColor(neopixel.rgb(255, 100, 0))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.show_color(neopixel.rgb(255, 100, 0))</code></div></div><div class="cheat-note">rgb(أحمر، أخضر، أزرق)، 0-255 لكل قناة</div></div><div class="cheat-item"><div class="cheat-pattern">إطفاء كل المصابيح</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.showColor(neopixel.colors(NeoPixelColors.Black))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.show_color(neopixel.colors(NeoPixelColors.BLACK))</code></div></div><div class="cheat-note">Black = إيقاف</div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">⚙️ التهيئة (مرة واحدة، في أعلى الكود)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let strip = neopixel.create(DigitalPin.P15, 4, NeoPixelMode.RGB)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip = neopixel.create(DigitalPin.P15, 4, neopixel.NeoPixelMode.RGB)</code></div></div><div class="cheat-note">يتطلب امتداد «neopixel» · 4 مصابيح على P15</div></div><div class="cheat-item"><div class="cheat-pattern">كل المصابيح حمراء</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.showColor(neopixel.colors(NeoPixelColors.Red))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.show_color(neopixel.colors(NeoPixelColors.RED))</code></div></div><div class="cheat-note">الألوان: Red, Green, Blue, Yellow, Purple, White, Black (إيقاف)</div></div><div class="cheat-item"><div class="cheat-pattern">لون RGB مخصص</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.showColor(neopixel.rgb(255, 100, 0))</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.show_color(neopixel.rgb(255, 100, 0))</code></div></div><div class="cheat-note">rgb(أحمر، أخضر، أزرق)، 0-255 لكل قناة</div></div><div class="cheat-item"><div class="cheat-pattern">إطفاء كل المصابيح</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.clear()
+strip.show()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.clear()
+strip.show()</code></div></div><div class="cheat-note">`.clear()` يحضّر، `.show()` يطبّق</div></div><div class="cheat-item"><div class="cheat-pattern">مصباح واحد (الفهرس 0-3)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>strip.setPixelColor(0, neopixel.rgb(255, 0, 0))
+strip.show()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>strip.set_pixel_color(0, neopixel.rgb(255, 0, 0))
+strip.show()</code></div></div><div class="cheat-note">الفهرس 0-3 للمصابيح الأربعة · استدعِ `.show()` للتطبيق</div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
     <span class="cheat-section-icon">📡</span>
     <span>المستشعرات</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">قراءة مستشعر الخط الأيسر</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let left = pins.digitalReadPin(DigitalPin.P13)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>left = pins.digital_read_pin(DigitalPin.P13)</code></div></div><div class="cheat-note">0 = أسود (تم كشف الخط)، 1 = أبيض</div></div><div class="cheat-item"><div class="cheat-pattern">قراءة المسافة بالموجات فوق الصوتية</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let d = maqueen.Ultrasonic(PingUnit.Centimeters)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>d = maqueen.ultrasonic(PingUnit.CENTIMETERS)</code></div></div><div class="cheat-note">المدى: 3 إلى 400 سم · &lt; 3 = خطأ</div></div><div class="cheat-item"><div class="cheat-pattern">قراءة السطوع (micro:bit)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let light = input.lightLevel()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>light = input.light_level()</code></div></div><div class="cheat-note">0 (معتم) إلى 255 (شمس ساطعة)</div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">قراءة مستشعر الخط الأيسر</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let left = maqueen.readPatrol(maqueen.Patrol.PatrolLeft)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>left = maqueen.read_patrol(maqueen.Patrol.PATROL_LEFT)</code></div></div><div class="cheat-note">0 = أبيض، 1 = أسود (تم كشف الخط) · PatrolRight لليمين</div></div><div class="cheat-item"><div class="cheat-pattern">قراءة المسافة بالموجات فوق الصوتية</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let d = maqueen.Ultrasonic()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>d = maqueen.ultrasonic()</code></div></div><div class="cheat-note">المدى: 3 إلى 400 سم · &lt; 3 = خطأ</div></div><div class="cheat-item"><div class="cheat-pattern">قراءة السطوع (micro:bit)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>let light = input.lightLevel()</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>light = input.light_level()</code></div></div><div class="cheat-note">0 (معتم) إلى 255 (شمس ساطعة)</div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
     <span class="cheat-section-icon">🔧</span>
     <span>السيرفو والتمديدات</span>
   </div>
-  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">تحديد موضع السيرفو (S1)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>pins.servoWritePin(AnalogPin.P1, 90)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>pins.servo_write_pin(AnalogPin.P1, 90)</code></div></div><div class="cheat-note">زاوية 0-180° · P1 = S1، P2 = S2</div></div></div>
+  <div class="cheat-items"><div class="cheat-item"><div class="cheat-pattern">تحديد موضع السيرفو (S1)</div><div class="cheat-code-row"><div class="cheat-code js"><span class="cheat-lang">JS</span><code>maqueen.servoRun(maqueen.Servos.S1, 90)</code></div><div class="cheat-code py"><span class="cheat-lang">PY</span><code>maqueen.servo_run(maqueen.Servos.S1, 90)</code></div></div><div class="cheat-note">زاوية 0-180° · Servos.S1 / Servos.S2</div></div></div>
 </div>
 <div class="cheat-section">
   <div class="cheat-section-header">
@@ -11670,7 +11744,7 @@ input.on_gesture(Gesture.SHAKE, on_shake)</code></div></div><div class="cheat-no
 </details>
 <details class="faq-item">
   <summary class="faq-question">Les LEDs RGB ne s'allument pas</summary>
-  <ul class="faq-answer"><li>✓ Installe l'extension « neopixel » en plus de « maqueen »</li><li>✓ Utilise maqueen.showColor() et non neopixel direct</li><li>✓ Les LEDs RGB sont sur P15 (géré automatiquement par la librairie Maqueen)</li><li>✓ Pour une couleur très vive, utilise 255 par canal (ex: rgb(255,0,0))</li></ul>
+  <ul class="faq-answer"><li>✓ Installe l'extension « neopixel » en plus de « maqueen »</li><li>✓ Crée un strip : `let strip = neopixel.create(DigitalPin.P15, 4, NeoPixelMode.RGB)` puis utilise `strip.showColor(...)`</li><li>✓ Les LEDs RGB sont sur P15 (4 NeoPixels)</li><li>✓ Pour une couleur très vive, utilise 255 par canal (ex: rgb(255,0,0))</li></ul>
 </details>
 <details class="faq-item">
   <summary class="faq-question">Les deux robots ne se parlent pas en radio</summary>
@@ -11710,7 +11784,7 @@ input.on_gesture(Gesture.SHAKE, on_shake)</code></div></div><div class="cheat-no
 </details>
 <details class="faq-item">
   <summary class="faq-question">RGB LEDs don't light up</summary>
-  <ul class="faq-answer"><li>✓ Install the "neopixel" extension in addition to "maqueen"</li><li>✓ Use maqueen.showColor() rather than neopixel directly</li><li>✓ RGB LEDs are on P15 (handled automatically by the Maqueen library)</li><li>✓ For very bright color, use 255 per channel (e.g. rgb(255,0,0))</li></ul>
+  <ul class="faq-answer"><li>✓ Install the "neopixel" extension in addition to "maqueen"</li><li>✓ Create a strip: `let strip = neopixel.create(DigitalPin.P15, 4, NeoPixelMode.RGB)`, then use `strip.showColor(...)`</li><li>✓ RGB LEDs are on P15 (4 NeoPixels)</li><li>✓ For very bright color, use 255 per channel (e.g. rgb(255,0,0))</li></ul>
 </details>
 <details class="faq-item">
   <summary class="faq-question">The two robots don't talk to each other over radio</summary>
@@ -11750,7 +11824,7 @@ input.on_gesture(Gesture.SHAKE, on_shake)</code></div></div><div class="cheat-no
 </details>
 <details class="faq-item">
   <summary class="faq-question">مصابيح RGB لا تضيء</summary>
-  <ul class="faq-answer"><li>✓ ثبّت امتداد «neopixel» بالإضافة إلى «maqueen»</li><li>✓ استخدم maqueen.showColor() وليس neopixel مباشرة</li><li>✓ مصابيح RGB على P15 (تُدار تلقائياً بمكتبة Maqueen)</li><li>✓ للحصول على لون مشع جداً، استخدم 255 لكل قناة (مثلاً rgb(255,0,0))</li></ul>
+  <ul class="faq-answer"><li>✓ ثبّت امتداد «neopixel» بالإضافة إلى «maqueen»</li><li>✓ أنشئ strip: `let strip = neopixel.create(DigitalPin.P15, 4, NeoPixelMode.RGB)` ثم استخدم `strip.showColor(...)`</li><li>✓ مصابيح RGB على P15 (4 NeoPixels)</li><li>✓ للحصول على لون مشع جداً، استخدم 255 لكل قناة (مثلاً rgb(255,0,0))</li></ul>
 </details>
 <details class="faq-item">
   <summary class="faq-question">الروبوتان لا يتواصلان عبر الراديو</summary>

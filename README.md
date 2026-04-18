@@ -1,21 +1,22 @@
 # Maqueen Lite · Guide Terrain
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-222?logo=github)](https://pages.github.com)
+[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-222?logo=github)](https://abourdim.github.io/maqueen-guide/)
 [![Single HTML](https://img.shields.io/badge/Single-HTML-e34c26?logo=html5&logoColor=white)](./index.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](./CHANGELOG.md)
 [![Trilingual](https://img.shields.io/badge/🇫🇷_🇬🇧_🇩🇿-FR_·_EN_·_AR-5865F2)](#languages)
 
 > **A complete field guide for the DFRobot Maqueen Lite (ROB0148) micro:bit robot — 85 activities in French, English and Arabic, packed in a single 1.2 MB HTML file with zero dependencies.**
 
 🇫🇷 **Français** · 🇬🇧 **English** · 🇩🇿 **العربية** (fuṣḥā · MSA)
 
+**🌐 Live demo:** [abourdim.github.io/maqueen-guide](https://abourdim.github.io/maqueen-guide/)
+
 ---
 
-## 🚀 Demo
+## 🚀 Quick start
 
-Open [`index.html`](./index.html) in any modern browser — no build, no server, no dependencies required. Works offline.
-
-For GitHub Pages hosting, just enable Pages on this repo and point to the root folder. The file will serve at `https://<user>.github.io/<repo>/`.
+Open [`index.html`](./index.html) in any modern browser — no build, no server, no dependencies. Works offline.
 
 ---
 
@@ -23,7 +24,7 @@ For GitHub Pages hosting, just enable Pages on this repo and point to the root f
 
 ### 📚 Content
 - **85 activities** spread across 9 categories (Démarrer, Officiel, Mouvement, LEDs & Son, Capteurs, Interactivité, Robotique, Défis, IA)
-- **15 official DFRobot examples** faithfully reproduced from the [wiki ROB0148](https://wiki.dfrobot.com/rob0148-en/)
+- **15 official DFRobot examples** (IDs 1-16) faithfully reproduced from the [wiki ROB0148](https://wiki.dfrobot.com/rob0148-en/)
 - **70 creative extensions** — from first LED blink to autonomous swarm behavior and Q-learning
 - **6 curated learning paths** — Beginner (8-10 y/o), Junior, Teen, AI, Competition, Creative
 - **21 curated external links** — MakeCode, CreateAI, Teachable Machine, extensions, forums
@@ -34,71 +35,63 @@ For GitHub Pages hosting, just enable Pages on this repo and point to the root f
 Every visible string in every panel is available in:
 - 🇫🇷 **French** (default)
 - 🇬🇧 **English**
-- 🇩🇿 **Modern Standard Arabic** (الفصحى / العربية الأدبية), with automatic RTL layout
+- 🇩🇿 **Modern Standard Arabic** (الفصحى), with automatic RTL layout
 
 Language switching is instant: one CSS rule swaps visibility across 2,500+ `lang`-attributed blocks.
 
 ### 🎨 Interface
-- **9 themes** — Mosque, Zellige, Andalus, Space, Jungle, Robot, Riad (light), Medina (light), Retro CRT (unlocked via Konami code)
+- **9 themes** — Mosque, Zellige, Andalus, Space, Jungle, Robot, Riad, Medina, Retro CRT (unlocked via Konami code)
 - **⌘K / Ctrl+K** command palette with fuzzy search
 - **Scroll-spy sidebar** with progress tracking (X/85 persisted in localStorage)
 - **Print CSS** optimized for A4 classroom handouts
 - **Responsive** — sidebar becomes drawer on mobile, Arabic flips RTL automatically
-- **Pixel pet 🐱** easter egg, per-theme melodies, splash screen with bismillah
 
 ### 🧠 Per-activity sections
 Each activity card contains:
-- 🎯 Objective · 🧰 Materials (pills) · 📋 Numbered steps
-- 💡 Teaching tip · 🔀 Auto-generated flowchart (colored nodes)
-- 📝 Pseudo-code box · 💻 JavaScript + Python code side-by-side with syntax highlighting and copy buttons
-- 🚀 Graduated challenges (easy/medium/hard color-coded dots)
-- ✓ Mark-as-done button (progress tracking)
+- 🎯 Objective · 🧰 Materials · 📋 Numbered steps
+- 💡 Teaching tip · 🔀 Auto-generated flowchart
+- 📝 Pseudo-code box · 💻 JavaScript + Python code (copy buttons)
+- 🚀 Graduated challenges (easy/medium/hard)
+- ✓ Mark-as-done button with persistent progress
 
 ---
 
-## 📂 Structure
+## 🛠️ Code conventions (MakeCode + pxt-maqueen)
 
-```
-.
-├── index.html              # The guide itself — ready to use, 1.2 MB
-├── src/                    # Python source modules that build index.html
-│   ├── assembler.py        # Main builder — emits the HTML
-│   ├── build.py            # Phase 1 activities (1-16): Getting Started + 15 Official
-│   ├── phase2.py           # Phase 2 activities (17-45): Movement, LEDs, Sensors, Interactivity
-│   ├── phase3.py           # Phase 3 activities (46-85): Robotics, Communication, Challenges, AI
-│   ├── phase4.py           # Learning paths (parcours)
-│   ├── translations.py     # EN + AR translations for activities 1-16
-│   ├── translations_p2.py  # EN + AR translations for activities 17-45
-│   ├── translations_p3.py  # EN + AR translations for activities 46-85
-│   ├── i18n_module.py      # UI strings (FR/EN/AR) + flag URLs
-│   ├── css_module.py       # All CSS (themes, layout, print)
-│   ├── js_module.py        # All runtime JS (state, nav, themes, ⌘K, progress)
-│   └── help_module.py      # Pinout SVG + cheatsheet + FAQ (trilingual)
-├── docs/
-│   ├── SCREENSHOTS.md      # Visual guide
-│   └── ARCHITECTURE.md     # How the build works
-├── build.sh                # One-line build script
-├── LICENSE                 # MIT
-├── CONTRIBUTING.md         # How to add activities / translations
-├── CHANGELOG.md
-└── README.md               # You are here
+All code examples use the **actual working API** verified against [DFRobot/pxt-maqueen](https://github.com/DFRobot/pxt-maqueen):
+
+**Motors** (`maqueen` namespace):
+```javascript
+maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 150)
+maqueen.motorStop(maqueen.Motors.All)
 ```
 
----
-
-## 🛠️ Rebuilding from source
-
-```bash
-# Requirements: Python 3.8+ (no external packages needed)
-./build.sh
-
-# Or manually:
-cd src && python3 assembler.py
-# → writes maqueen-guide.html to current dir
-# → move/rename to ../index.html for GitHub Pages
+**Front LEDs** (P8 left, P12 right):
+```javascript
+maqueen.writeLED(maqueen.LED.LEDLeft, maqueen.LEDswitch.turnOn)
 ```
 
-The build is entirely stdlib — no npm, no pip, no build toolchain. Everything is pure Python string templating.
+**RGB ambient LEDs** (require the separate `neopixel` extension):
+```javascript
+let strip = neopixel.create(DigitalPin.P15, 4, NeoPixelMode.RGB)
+strip.showColor(neopixel.colors(NeoPixelColors.Purple))
+strip.clear(); strip.show()
+```
+
+**Line sensors**:
+```javascript
+let left = maqueen.readPatrol(maqueen.Patrol.PatrolLeft)   // 0 = white, 1 = black
+```
+
+**Ultrasonic** (SR04 in the Maqueen port):
+```javascript
+let distance = maqueen.Ultrasonic()   // centimeters, no argument
+```
+
+**Servos**:
+```javascript
+maqueen.servoRun(maqueen.Servos.S1, 90)   // angle 0-180°
+```
 
 ---
 
@@ -110,76 +103,89 @@ The build is entirely stdlib — no npm, no pip, no build toolchain. Everything 
 - Optional: ultrasonic sensor (SR04), servo motor, IR remote
 
 Pin reference:
-| Component | Pin | Type |
+| Component | Pin | Access |
 |---|---|---|
-| Front LED left | P8 | Digital ON/OFF |
-| Front LED right | P12 | Digital ON/OFF |
-| Line sensor left | P13 | Digital 0/1 |
-| Line sensor right | P14 | Digital 0/1 |
-| RGB NeoPixels (×4) | P15 | NeoPixel bus |
-| IR receiver | P16 | NEC protocol |
-| Servo S1 | P1 | PWM |
-| Servo S2 | P2 | PWM |
+| Front LED left | P8 | `maqueen.writeLED(maqueen.LED.LEDLeft, ...)` |
+| Front LED right | P12 | `maqueen.writeLED(maqueen.LED.LEDRight, ...)` |
+| Line sensor left | P13 | `maqueen.readPatrol(maqueen.Patrol.PatrolLeft)` |
+| Line sensor right | P14 | `maqueen.readPatrol(maqueen.Patrol.PatrolRight)` |
+| RGB NeoPixels (×4) | P15 | via `neopixel` extension |
+| IR receiver | P16 | `maqueen.IR_Read(IR_Pin.P16)` |
+| Servo S1 | P1 | `maqueen.servoRun(maqueen.Servos.S1, ...)` |
+| Servo S2 | P2 | `maqueen.servoRun(maqueen.Servos.S2, ...)` |
+
+Required MakeCode extensions: **maqueen** + **neopixel** (for RGB).
+
+---
+
+## 📂 Structure
+
+```
+.
+├── index.html              # The guide itself — ready to use, 1.22 MB
+├── src/                    # Python source modules that build index.html
+│   ├── assembler.py        # Main builder
+│   ├── build.py            # Phase 1 activities (1-16): official
+│   ├── phase2.py           # Phase 2 activities (17-45)
+│   ├── phase3.py           # Phase 3 activities (46-85)
+│   ├── phase4.py           # Learning paths
+│   ├── translations.py     # EN + AR translations (1-16)
+│   ├── translations_p2.py  # EN + AR translations (17-45)
+│   ├── translations_p3.py  # EN + AR translations (46-85)
+│   ├── i18n_module.py      # UI strings
+│   ├── css_module.py       # All CSS (themes, layout, print)
+│   ├── js_module.py        # Runtime JS
+│   └── help_module.py      # Pinout SVG + cheatsheet + FAQ
+├── docs/
+│   ├── SCREENSHOTS.md      # Visual guide
+│   └── ARCHITECTURE.md     # How the build works
+├── build.sh                # One-line rebuild
+├── LICENSE                 # MIT
+├── CHANGELOG.md            # Version history
+├── CONTRIBUTING.md         # How to add activities
+├── .github/workflows/      # Auto-build + deploy on push
+│   └── build.yml
+└── README.md               # You are here
+```
+
+---
+
+## 🛠️ Rebuilding from source
+
+```bash
+# Requirements: Python 3.8+ (no external packages needed)
+./build.sh
+```
+
+The build is pure Python stdlib — no npm, no pip, no toolchain.
 
 ---
 
 ## 🎓 Classroom usage
 
-### For teachers
-- **Ctrl+P / Cmd+P** generates a print-ready A4 handout — the print CSS strips sidebar and panels
-- Browse by **📘 Official** category for the exact DFRobot wiki examples
-- Use **🗺️ Parcours** (learning paths) to follow a curated sequence matching your students' age
-- The **🆘 FAQ** panel has the 10 most-common classroom issues and how to fix them in 30 seconds
-- Progress is saved locally in the browser (no server, no account)
-
-### For students
-- Every activity has **Blocks → JavaScript → Python** progression
-- Copy button on every code block — paste directly into [MakeCode](https://makecode.microbit.org)
-- Challenges (🎯 green/yellow/red) let self-directed learners push further
-- The **🎲 Random** button picks any activity for spontaneous discovery
-
-### Recommended progression
-```
-debutant (🐣 8-10) → junior (🎓 10-12) → ado (🚀 12-15)
-                                              ↓
-                             ia (🧠) · competition (🏆) · creatif (🎨)
-```
+- **Ctrl+P / Cmd+P** generates a clean print-ready A4 handout
+- Browse by **📘 Official** category for exact DFRobot wiki examples
+- Use **🗺️ Parcours** to follow a curated sequence matching student age
+- **🆘 FAQ** panel has the 10 most-common classroom issues
+- Progress saved locally in the browser (no server, no account needed)
 
 ---
 
-## 📦 Dependencies
+## 🙏 Credits
 
-**Runtime** (loaded by `index.html`):
-- `fonts.googleapis.com` — Amiri + Tajawal (Arabic typography)
-- `flagcdn.com` — 🇫🇷 🇬🇧 🇩🇿 flag images (40px width)
-
-**Build** (to regenerate from source):
-- Python 3.8+ standard library only
-
-**No npm, no webpack, no bundler.** The entire guide is one file.
-
----
-
-## 🙏 Credits & attribution
-
-- **Hardware**: [DFRobot](https://www.dfrobot.com) — Maqueen Lite (ROB0148) and `pxt-maqueen` extension
+- **Hardware**: [DFRobot](https://www.dfrobot.com) — Maqueen Lite (ROB0148) and [`pxt-maqueen`](https://github.com/DFRobot/pxt-maqueen)
 - **Platform**: [Microsoft MakeCode](https://makecode.microbit.org) and [micro:bit Educational Foundation](https://microbit.org)
 - **AI tools**: [micro:bit CreateAI](https://createai.microbit.org) and [Google Teachable Machine](https://teachablemachine.withgoogle.com)
-- **Design inspiration**: [abourdim/bit-54-activities](https://github.com/abourdim/bit-54-activities) — the trilingual structure and pedagogical flow of each activity card follows this excellent guide
-- **Workshop-DIY Toolkit**: [abourdim/tools](https://github.com/abourdim/tools) — shared theme system and visual language
+- **Sibling projects**: [bit-54-activities](https://github.com/abourdim/bit-54-activities) and [Workshop-DIY Toolkit](https://github.com/abourdim/tools) — same author, complementary guides
 
 ---
 
 ## 📄 License
 
-This project is released under the [MIT License](./LICENSE).
-
-Code examples based on the DFRobot wiki (Activities 1-16) remain under their original licensing. All creative extensions and translations (Activities 17-85, 6 learning paths, help content) are original contributions.
+MIT — see [LICENSE](./LICENSE). Code examples based on the DFRobot wiki (Activities 1-16) remain under their original licensing.
 
 ---
 
 ## 🤝 Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to add activities, fix translations, or propose new learning paths.
-
-Issues and pull requests welcome! 🎉
+See [CONTRIBUTING.md](./CONTRIBUTING.md). Issues and pull requests welcome! 🎉

@@ -40,6 +40,16 @@ jobs:
             echo "❌ Build output suspiciously small"
             exit 1
           fi
+          # Regression guard: these patterns must NOT be present
+          if grep -q "maqueen\.showColor" index.html; then
+            echo "❌ Regression: maqueen.showColor found (should be strip.showColor)"
+            exit 1
+          fi
+          if grep -q "PingUnit\.Centimeters" index.html; then
+            echo "❌ Regression: PingUnit.Centimeters found (should be no argument)"
+            exit 1
+          fi
+          echo "✅ Regression checks passed"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
