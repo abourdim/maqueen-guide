@@ -742,18 +742,14 @@ function applyLang(){
   $("nextBtn").textContent = t("next");
 
   // Sidebar labels
-  $("sbAll").textContent = t("sbAll");
   $("sbSimple").textContent = t("sbSimple");
   $("sbAdvanced").textContent = t("sbAdvanced");
-  $("sbLed").textContent = t("sbLed");
-  $("sbInput").textContent = t("sbInput");
-  $("sbGames").textContent = t("sbGames");
-  $("sbSensors").textContent = t("sbSensors");
-  $("sbComm").textContent = t("sbComm");
-  $("sbSound").textContent = t("sbSound");
-  $("sbProg").textContent = t("sbProg");
-  $("sbElec").textContent = t("sbElec");
-  $("sbRobot").textContent = t("sbRobot");
+  document.querySelectorAll('#sidebar .sidebar-item[data-topic]').forEach(btn => {
+    const topic = btn.dataset.topic;
+    const key = topic === 'all' ? 'sbAll' : 'sb' + topic.charAt(0).toUpperCase() + topic.slice(1);
+    const labelEl = btn.querySelector('.sidebar-label');
+    if (labelEl) labelEl.textContent = t(key);
+  });
 
   document.title = t("title") + " — Workshop DIY";
   render();
@@ -1293,7 +1289,7 @@ function render(){
   const doneC = Object.keys(progress.done).length;
   const favC = Object.keys(progress.fav).length;
   $("statsRow").innerHTML = `<span>${t("results")} : <strong>${list.length}</strong> ${t("of")}</span><span>${t("doneL")} : <strong>${doneC}</strong></span><span>${t("favL")} : <strong>${favC}</strong></span>`;
-  $("statsText").textContent = `${doneC} / 48 (${Math.round(doneC/48*100)}%)`;
+  $("statsText").textContent = `${doneC} / ${A.length} (${Math.round(doneC/A.length*100)}%)`;
 
   if(list.length === 0){
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">${t("noResults")}</div>`;
