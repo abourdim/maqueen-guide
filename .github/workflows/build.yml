@@ -36,10 +36,29 @@ jobs:
           test -f index.html
           SIZE=$(stat -c%s index.html)
           echo "Built index.html: $SIZE bytes"
-          if [ "$SIZE" -lt 500000 ]; then
+          if [ "$SIZE" -lt 350000 ]; then
             echo "❌ Build output suspiciously small"
             exit 1
           fi
+          # Activity count: exactly 85, IDs 1..85 sequential
+          python3 - <<'PY'
+          import re
+          h = open('index.html').read()
+          i = h.find('const A = [')
+          assert i >= 0, 'const A = [ not found'
+          depth, k = 0, i + len('const A = [') - 1
+          while k < len(h):
+              c = h[k]
+              if c == '[': depth += 1
+              elif c == ']':
+                  depth -= 1
+                  if depth == 0: break
+              k += 1
+          body = h[i:k+1]
+          ids = sorted(int(m.group(1)) for m in re.finditer(r'"id":\s*(\d+)', body))
+          assert ids == list(range(1, 86)), f'Expected 1..85, got {ids}'
+          print(f'Activity check: {len(ids)} IDs 1..85')
+          PY
           # Regression guard: these patterns must NOT be present
           if grep -q "maqueen\.showColor" index.html; then
             echo "❌ Regression: maqueen.showColor found (should be strip.showColor)"

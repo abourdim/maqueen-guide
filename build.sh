@@ -10,14 +10,12 @@ cd "$SCRIPT_DIR"
 echo "🛠️  Building Maqueen guide..."
 echo ""
 
-cd src
-python3 assembler.py
+python3 src/assembler.py
 
-if [ -f maqueen-guide.html ]; then
-    mv maqueen-guide.html ../index.html
-    SIZE=$(du -h ../index.html | cut -f1)
+if [ -f index.html ]; then
+    SIZE=$(du -h index.html | cut -f1)
     echo ""
-    echo "✅ Built ../index.html ($SIZE)"
+    echo "✅ Built index.html ($SIZE)"
     echo ""
     echo "Open index.html in your browser, or deploy to GitHub Pages:"
     echo "  Settings → Pages → Source: GitHub Actions"

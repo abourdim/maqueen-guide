@@ -29,3 +29,7 @@ src/maqueen-guide.html
 
 # Logs
 *.log
+
+# Preview tooling
+.claude/
+_reference/
