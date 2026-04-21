@@ -975,7 +975,15 @@ $("openMCPY").addEventListener("click", async () => {
   showToast(lang==="ar"?"تم النسخ! الصق في MakeCode ← Python":lang==="en"?"Copied! Paste in MakeCode → Python":"Copié ! Colle dans MakeCode → Python");
   window.open("https://makecode.microbit.org/#editor","_blank");
 });
-$("themeSelect").addEventListener("change", e => {document.documentElement.dataset.theme=e.target.value;});
+// Restore saved theme on load; persist on change.
+(function(){
+  const saved = localStorage.getItem("theme");
+  if (saved) { document.documentElement.dataset.theme = saved; $("themeSelect").value = saved; }
+})();
+$("themeSelect").addEventListener("change", e => {
+  document.documentElement.dataset.theme = e.target.value;
+  localStorage.setItem("theme", e.target.value);
+});
 $("langSelect").addEventListener("change", e => {lang=e.target.value;applyLang();});
 
 // ═══════════════════════════════════════════════════════════════════

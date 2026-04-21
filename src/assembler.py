@@ -368,7 +368,7 @@ for p in ('__UI__','__ACTIVITIES__','__BT__','__TR__','__BADGES__','__TOPICS__',
 # ═══════════════════════════════════════════════════════════════════
 
 HTML = f'''<!doctype html>
-<html lang="fr" dir="ltr">
+<html lang="fr" dir="ltr" data-theme="robot">
 <head>{HEAD}<style>{CSS}</style></head>
 <body>{BODY}
 <script>{script}</script>
