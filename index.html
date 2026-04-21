@@ -1823,14 +1823,28 @@ function startSim(){
   hint.style.display = "none";
   simImported = false;
   if(!frame.src || frame.src === "about:blank"){
-    frame.src = SIM_URL;
     simReady = false;
     simPending = a.codeJS;
-    // Fallback: try sending code after 8s even if no ready message
-    setTimeout(() => {
-      if(!simReady && simPending){
-        console.log("[SIM] Fallback: forcing code import after 8s");
+    // Force import once iframe has finished loading (MakeCode's ready
+    // postMessage is unreliable on first navigation — this guarantees it).
+    frame.onload = () => {
+      setTimeout(() => {
+        if(simImported || !simPending) return;
+        console.log("[SIM] onload: forcing import");
+        const code = simPending;
+        simPending = null;
         simReady = true;
+        simImported = true;
+        loadSimCode(code);
+      }, 2500);
+    };
+    frame.src = SIM_URL;
+    // Longer-tail fallback in case onload never fires
+    setTimeout(() => {
+      if(!simImported && simPending){
+        console.log("[SIM] 8s fallback: forcing code import");
+        simReady = true;
+        simImported = true;
         const code = simPending;
         simPending = null;
         loadSimCode(code);
