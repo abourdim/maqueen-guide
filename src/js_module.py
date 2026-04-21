@@ -912,7 +912,7 @@ $("randomBtn").addEventListener("click", () => {
 });
 
 $("closeBtn").addEventListener("click", closeModal);
-overlay.addEventListener("click", e => {if(e.target===overlay) closeModal();});
+// Click-outside-to-close disabled; use ✕ button or Esc.
 document.addEventListener("keydown", e => {
   if(!overlay.classList.contains("open")) return;
   if(e.key==="Escape") closeModal();
