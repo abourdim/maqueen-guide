@@ -1,6 +1,6 @@
 # Maqueen Lite · Guide Terrain
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-222?logo=github)](https://abourdim.github.io/maqueen-guide/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-222?logo=github)](https://abourdim.github.io/maqueen-activities/)
 [![Single HTML](https://img.shields.io/badge/Single-HTML-e34c26?logo=html5&logoColor=white)](./index.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](./CHANGELOG.md)
@@ -10,7 +10,7 @@
 
 🇫🇷 **Français** · 🇬🇧 **English** · 🇩🇿 **العربية** (fuṣḥā · MSA)
 
-**🌐 Live demo:** [abourdim.github.io/maqueen-guide](https://abourdim.github.io/maqueen-guide/)
+**🌐 Live demo:** [abourdim.github.io/maqueen-activities](https://abourdim.github.io/maqueen-activities/)
 
 ---
 

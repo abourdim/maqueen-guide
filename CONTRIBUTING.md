@@ -5,8 +5,8 @@ Thanks for your interest in improving the Maqueen Lite Guide Terrain!
 ## Quick start
 
 ```bash
-git clone https://github.com/abourdim/maqueen-guide.git
-cd maqueen-guide
+git clone https://github.com/abourdim/maqueen-activities.git
+cd maqueen-activities
 ./build.sh              # rebuild index.html from src/
 open index.html         # macOS · or xdg-open on Linux, start on Windows
 ```
@@ -122,7 +122,7 @@ Append to `PARCOURS` in `src/phase4.py` with trilingual `name`, `desc`, `age`, `
 
 ## Reporting a bug
 
-Open an [issue](https://github.com/abourdim/maqueen-guide/issues/new) with:
+Open an [issue](https://github.com/abourdim/maqueen-activities/issues/new) with:
 - Browser + version
 - Language / theme active
 - Activity ID (if applicable)
