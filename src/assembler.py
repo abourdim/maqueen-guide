@@ -116,7 +116,7 @@ ROADMAP_ICONS = {c: CAT_META[c]['icon'] for c in ALL_SIDEBAR_CATS}
 # UI labels (bit-48 keys), customized for maqueen.
 UI = {
     'fr': {
-        'title': 'Maqueen · 85 activités', 'sub': '🧩 blocs · 💻 code · 🚀 défis',
+        'title': 'Maqueen · activités', 'sub': '🧩 blocs · 💻 code · 🚀 défis',
         'search': '🔍 Recherche', 'ph': 'robot, capteur, ligne, IA…',
         'part': '📂 Partie', 'diff': '⭐ Difficulté', 'status': '📊 Statut',
         'allParts': 'Toutes', 'simple': 'Simple', 'advanced': 'Avancée',
@@ -138,7 +138,7 @@ UI = {
         'sbAll': 'Tout', 'sbSimple': 'Simple', 'sbAdvanced': 'Avancé',
     },
     'en': {
-        'title': 'Maqueen · 85 Activities', 'sub': '🧩 blocks · 💻 code · 🚀 challenges',
+        'title': 'Maqueen · Activities', 'sub': '🧩 blocks · 💻 code · 🚀 challenges',
         'search': '🔍 Search', 'ph': 'robot, sensor, line, AI…',
         'part': '📂 Part', 'diff': '⭐ Difficulty', 'status': '📊 Status',
         'allParts': 'All', 'simple': 'Simple', 'advanced': 'Advanced',
@@ -160,7 +160,7 @@ UI = {
         'sbAll': 'All', 'sbSimple': 'Simple', 'sbAdvanced': 'Advanced',
     },
     'ar': {
-        'title': 'Maqueen · 85 نشاطاً', 'sub': '🧩 مكعبات · 💻 كود · 🚀 تحديات',
+        'title': 'Maqueen · أنشطة', 'sub': '🧩 مكعبات · 💻 كود · 🚀 تحديات',
         'search': '🔍 بحث', 'ph': 'روبوت، مستشعر، خط، ذكاء اصطناعي…',
         'part': '📂 القسم', 'diff': '⭐ الصعوبة', 'status': '📊 الحالة',
         'allParts': 'الكل', 'simple': 'بسيط', 'advanced': 'متقدم',
