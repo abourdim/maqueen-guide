@@ -227,7 +227,7 @@ BODY = f'''
               <option value="ar">عربي</option>
             </select>
             <select id="themeSelect" class="mini-select" aria-label="Theme">
-              <option value="robot">Robot</option><option value="space">Space</option><option value="jungle">Jungle</option>
+              <option value="robot" selected>Robot</option><option value="space">Space</option><option value="jungle">Jungle</option>
               <option value="mosque-gold">Mosque</option><option value="zellige">Zellige</option><option value="andalus">Andalus</option>
             </select>
           </div>

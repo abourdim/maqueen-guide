@@ -977,8 +977,12 @@ $("openMCPY").addEventListener("click", async () => {
 });
 // Restore saved theme on load; persist on change.
 (function(){
+  const sel = $("themeSelect");
+  const valid = new Set([...sel.options].map(o => o.value));
   const saved = localStorage.getItem("theme");
-  if (saved) { document.documentElement.dataset.theme = saved; $("themeSelect").value = saved; }
+  const theme = (saved && valid.has(saved)) ? saved : "robot";
+  document.documentElement.dataset.theme = theme;
+  sel.value = theme;
 })();
 $("themeSelect").addEventListener("change", e => {
   document.documentElement.dataset.theme = e.target.value;

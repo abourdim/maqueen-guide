@@ -468,7 +468,7 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline
               <option value="ar">عربي</option>
             </select>
             <select id="themeSelect" class="mini-select" aria-label="Theme">
-              <option value="robot">Robot</option><option value="space">Space</option><option value="jungle">Jungle</option>
+              <option value="robot" selected>Robot</option><option value="space">Space</option><option value="jungle">Jungle</option>
               <option value="mosque-gold">Mosque</option><option value="zellige">Zellige</option><option value="andalus">Andalus</option>
             </select>
           </div>
@@ -1564,8 +1564,12 @@ $("openMCPY").addEventListener("click", async () => {
 });
 // Restore saved theme on load; persist on change.
 (function(){
+  const sel = $("themeSelect");
+  const valid = new Set([...sel.options].map(o => o.value));
   const saved = localStorage.getItem("theme");
-  if (saved) { document.documentElement.dataset.theme = saved; $("themeSelect").value = saved; }
+  const theme = (saved && valid.has(saved)) ? saved : "robot";
+  document.documentElement.dataset.theme = theme;
+  sel.value = theme;
 })();
 $("themeSelect").addEventListener("change", e => {
   document.documentElement.dataset.theme = e.target.value;
