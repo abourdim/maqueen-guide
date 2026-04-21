@@ -1238,36 +1238,14 @@ function startSim(){
   if(!frame.src || frame.src === "about:blank"){
     simReady = false;
     simPending = a.codeJS;
-    // Force import once iframe has finished loading (MakeCode's ready
-    // postMessage is unreliable on first navigation — this guarantees it).
-    frame.onload = () => {
-      setTimeout(() => {
-        if(simImported || !simPending) return;
-        console.log("[SIM] onload: forcing import");
-        const code = simPending;
-        simPending = null;
-        simReady = true;
-        simImported = true;
-        loadSimCode(code);
-      }, 2500);
-    };
     frame.src = SIM_URL;
-    // Longer-tail fallback in case onload never fires
-    setTimeout(() => {
-      if(!simImported && simPending){
-        console.log("[SIM] 8s fallback: forcing code import");
-        simReady = true;
-        simImported = true;
-        const code = simPending;
-        simPending = null;
-        loadSimCode(code);
-      }
-    }, 8000);
-  } else if(simReady){
-    loadSimCode(a.codeJS);
-  } else {
-    simPending = a.codeJS;
   }
+  // Always import twice: the first importproject is often dropped because the
+  // MakeCode editor isn't yet listening for postMessage. A second import a few
+  // seconds later reliably lands. Cheap and deterministic.
+  const code = a.codeJS;
+  setTimeout(() => loadSimCode(code), 3500);
+  setTimeout(() => loadSimCode(code), 7000);
 }
 
 function stopSim(){
